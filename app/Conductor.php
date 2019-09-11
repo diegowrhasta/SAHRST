@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Conductor extends Model
 {
-    protected $table = 'conductor';
+    use SoftDeletes;
+
+    protected $table = 'conductores';
     protected $primaryKey ='conductor_id';
     protected $softDelete = true;
 
@@ -16,4 +19,7 @@ class Conductor extends Model
     protected $hidden = [
         'deleted_at', 'created_at', 'updated_at'
     ];
+    public function ruta(){
+        return $this->belongsTo('App\Ruta','ruta_id','ruta_id');
+    }
 }

@@ -13,7 +13,7 @@ class CreateConductorTable extends Migration
      */
     public function up()
     {
-        Schema::create('conductor', function (Blueprint $table) {
+        Schema::create('conductores', function (Blueprint $table) {
             $table->bigIncrements('conductor_id');
             $table->string('nombres');
             $table->string('ap_paterno');
