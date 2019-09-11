@@ -20,7 +20,7 @@ class ConductorBL
         return $resp;
     }
     public function prepareShow($conductor_id){
-        if($conductor_id!=null){
+        if($conductor_id==null){
             return false;
         }
         else{

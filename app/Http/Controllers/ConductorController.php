@@ -43,7 +43,7 @@ class ConductorController extends Controller
             'direccion.required'=>'La dirección es requerida',
             'celular.required'=>'El número de celular es requerido',
             'celular.numeric'=>'El número de celular debe ser numérico',
-            'telefono.numeric'=>'El número de telefdebe ser numérico',
+            'telefono.numeric'=>'El número de telef debe ser numérico',
         ];
         $validator = Validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
@@ -63,7 +63,7 @@ class ConductorController extends Controller
             return response()->json(['Message'=>'Conductor no se encontró','Code'=>404],404);
         }
         else{
-            return response()->json(['data'=>$conductor],200);
+            return response()->json([$conductor],200);
         }
     }
     public function index(){
