@@ -41,4 +41,13 @@ class ConductorDAO
             return false;
         }
     }
+    public function getList(){
+        try{
+            $conductores = Conductor::all();
+            return $conductores;
+        }
+        catch(\Exception $e){
+            return false;
+        }
+    }
 }

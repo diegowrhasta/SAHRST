@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Conductor;
 use App\Http\BL\ConductorBL;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ConductorController extends Controller
 {
@@ -66,7 +67,14 @@ class ConductorController extends Controller
         }
     }
     public function index(){
-
+        $conductorBL = new ConductorBL;
+        $conductores = $conductorBL->getConductores();
+        if(!$conductores){
+            return response()->json(['Message'=>'No hay conductores registrados','Code'=>404],404);
+        }
+        else{
+            return response()->json(['data'=>$conductores],200);
+        }
     }
 
     public function update(Request $request, Conductor $conductor){
