@@ -18,8 +18,7 @@ class ConductorController extends Controller
 //        //
 //    }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $rules = [
             'nombres'=>'bail|required|max:45',
             'ap_paterno'=>'bail|required|max:25',
@@ -56,23 +55,25 @@ class ConductorController extends Controller
 
     }
 
-    public function show(Conductor $conductor)
-    {
+    public function show($conductor_id){
+        $conductorBL = new ConductorBL;
+        $conductor = $conductorBL->prepareShow($conductor_id);
+        if(!$conductor){
+            return response()->json(['Message'=>'Conductor no se encontró','Code'=>404],404);
+        }
+        else{
+            return response()->json(['data'=>$conductor],200);
+        }
+    }
+    public function index(){
+
+    }
+
+    public function update(Request $request, Conductor $conductor){
         //
     }
 
-    public function edit(Conductor $conductor)
-    {
-        //
-    }
-
-    public function update(Request $request, Conductor $conductor)
-    {
-        //
-    }
-
-    public function destroy(Conductor $conductor)
-    {
+    public function destroy(Conductor $conductor){
         //
     }
 }

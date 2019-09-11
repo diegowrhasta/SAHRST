@@ -11,9 +11,9 @@ class Conductor extends Model
     protected $softDelete = true;
 
     protected $fillable = [
-        'nombres', 'ap_paterno', 'ap_materno', 'fecha_nacimiento', 'ci', 'direccion', 'celular', 'telefono'
+        'nombres', 'ap_paterno', 'ap_materno', 'fecha_nacimiento', 'ci', 'direccion', 'celular', 'telefono', 'ruta_id'
     ];
     protected $hidden = [
-        'deleted_at'
+        'deleted_at', 'created_at', 'updated_at'
     ];
 }

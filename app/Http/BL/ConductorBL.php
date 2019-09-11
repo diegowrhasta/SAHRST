@@ -19,4 +19,19 @@ class ConductorBL
         $resp = $conductorDAO->dbSaveConductor($data);
         return $resp;
     }
+    public function prepareShow($conductor_id){
+        if($conductor_id!=null){
+
+        }
+        else{
+            $conductorDAO = new ConductorDAO;
+            $check_conductor = $conductorDAO->getConductor($conductor_id);
+            if(!$check_conductor){
+                return false;
+            }
+            else{
+                return $check_conductor;
+            }
+        }
+    }
 }

@@ -32,4 +32,13 @@ class ConductorDAO
         }
 
     }
+    public function getConductor($conductor_id){
+        try{
+            $conductor = Conductor::find($conductor_id);
+            return $conductor;
+        }
+        catch(\Exception $e){
+            return false;
+        }
+    }
 }
