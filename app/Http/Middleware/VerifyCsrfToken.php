@@ -19,6 +19,8 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-            '/Conductor'
+            '/Conductor',
+            '/Tipo_Punto',
+            '/Ruta'
     ];
 }
