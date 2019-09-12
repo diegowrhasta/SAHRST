@@ -11,7 +11,7 @@ class PuntoController extends Controller
     public function store(Request $request){
         $rules = [
             'nombre'=>'bail|required|max:45',
-            'tipo_punto_id'=>'bail|required|numeric'
+            'tipo_punto_id'=>'bail|required|numeric',
         ];
         $msg = [
             'nombre.required'=>'El campo nombre es requerido',
