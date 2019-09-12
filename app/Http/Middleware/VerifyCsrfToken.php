@@ -22,6 +22,7 @@ class VerifyCsrfToken extends Middleware
             '/Conductor',
             '/Tipo_Punto',
             '/Ruta',
-            '/Punto_Ruta'
+            '/Punto_Ruta',
+            '/Punto'
     ];
 }

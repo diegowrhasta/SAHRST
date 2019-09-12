@@ -30,3 +30,5 @@ Route::resource('Ruta','RutaController');
 Route::resource('Tipo_Punto', 'Tipo_PuntoController');
 
 Route::resource('Punto_Ruta', 'Punto_RutaController');
+
+Route::resource('Punto', 'PuntoController');
