@@ -14,7 +14,7 @@ class CreatePuntosRutaTable extends Migration
     public function up()
     {
         Schema::create('puntos_ruta', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('punto_ruta_id');
             $table->bigInteger('punto_id')->unsigned()->nullable();
             $table->foreign('punto_id')->references('punto_id')->on('puntos');
             $table->bigInteger('ruta_id')->unsigned()->nullable();

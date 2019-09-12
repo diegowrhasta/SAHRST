@@ -5,12 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Ruta extends Model
+class Tipo_Punto extends Model
 {
     use SoftDeletes;
-
-    protected $table = 'rutas';
-    protected $primaryKey ='ruta_id';
+    protected $table = 'tipo_puntos';
+    protected $primaryKey ='tipo_punto_id';
     protected $softDelete = true;
     
     protected $fillable = [
@@ -20,11 +19,7 @@ class Ruta extends Model
     protected $hidden = [
         'created_at','deleted_at','updated_at',
     ];
-    public function conductor(){
-        return $this->hasMany('App\Conductor','ruta_id','ruta_id');
+    public function punto(){
+        return $this->hasMany('App\Punto','tipo_punto_id','tipo_punto_id');
     }
-    public function punto_ruta(){
-        return $this->hasMany('App\Punto_Ruta','ruta_id','ruta_id');
-    }
-
 }
