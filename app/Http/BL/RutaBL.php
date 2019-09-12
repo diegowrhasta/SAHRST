@@ -2,7 +2,6 @@
 
 namespace App\Http\BL;
 
-
 use App\Http\DAO\RutaDAO;
 
 class RutaBL

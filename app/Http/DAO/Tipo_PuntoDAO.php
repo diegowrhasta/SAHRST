@@ -1,15 +1,15 @@
 <?php
 namespace App\Http\DAO;
 
-use App\Ruta;
+use App\Tipo_Punto;
 use Illuminate\Database\QueryException;
 
-class RutaDAO
+class Tipo_PuntoDAO
 {
-    public function dbSaveRuta(array $data)
+    public function dbSaveTipo_Punto(array $data)
     {
         try{
-            Ruta::create($data);
+            Tipo_Punto::create($data);
             return response()->json(['status'=>'Ruta registrada correctamente'],200);
         } catch (QueryException $exception){
             return response()->json([
