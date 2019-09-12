@@ -31,4 +31,13 @@ class Tipo_PuntoDAO
             return false;
         }
     }
+    public function getList(){
+        try{
+            $tipos_punto = Tipo_Punto::all();
+            return $tipos_punto;
+        }
+        catch(\Exception $e){
+            return false;
+        }
+    }
 }

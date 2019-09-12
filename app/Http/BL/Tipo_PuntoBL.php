@@ -27,4 +27,15 @@ class Tipo_PuntoBL
             }
         }
     }
+    public function getTipos_Punto(){
+        $tipo_puntoDAO = new Tipo_PuntoDAO;
+        $tipos_punto = $tipo_puntoDAO->getList();
+        $count = $tipos_punto->count();
+        if($count<1){
+            return false;
+        }
+        else{
+            return $tipos_punto;
+        }
+    }
 }

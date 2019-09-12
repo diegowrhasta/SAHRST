@@ -21,6 +21,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
             '/Conductor',
             '/Tipo_Punto',
-            '/Ruta'
+            '/Ruta',
+            '/Punto_Ruta'
     ];
 }

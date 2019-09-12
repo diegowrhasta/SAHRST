@@ -36,4 +36,14 @@ class Tipo_PuntoController extends Controller
             return response()->json([$tipo_punto],200);
         }
     }
+    public function index(){
+        $tipo_puntoBL = new Tipo_PuntoBL;
+        $tipos_punto = $tipo_puntoBL->getTipos_Punto();
+        if(!$tipos_punto){
+            return response()->json(['Message'=>'No hay tipos de punto registrados','Code'=>404],404);
+        }
+        else{
+            return response()->json(['data'=>$tipos_punto],200);
+        }
+    }
 }
