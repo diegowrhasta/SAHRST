@@ -22,4 +22,16 @@ class PuntoDAO
             ], 400);
         }
     }
+    public function dbGetPuntos(){
+        try{
+            $puntos = Punto::all();
+            return $puntos;
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+            ], 400);
+        }
+    }
 }

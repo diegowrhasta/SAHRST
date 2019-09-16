@@ -17,8 +17,20 @@ class Punto_RutaDAO
             ], 500);
         } catch (\Exception $exception){
             return response()->json([
-                'Error'=> $exception->getMessage(),
-                'Code'=>$exception->getCode(),
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+            ], 400);
+        }
+    }
+    public function dbGetPuntos_Ruta(){
+        try{
+            $puntos_ruta = Punto_Ruta::all();
+            return $puntos_ruta;
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
             ], 400);
         }
     }

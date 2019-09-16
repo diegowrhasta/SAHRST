@@ -28,4 +28,14 @@ class PuntoController extends Controller
             return $resp;
         }
     }
+    public function index(){
+        $puntoBL = new PuntoBL;
+        $puntos = $puntoBL->getPuntos();
+        if(!$puntos){
+            return response()->json(['Message'=>'No hay puntos registrados','Code'=>404],404);
+        }
+        else{
+            return response()->json(['data'=>$puntos],200);
+        }
+    }
 }
