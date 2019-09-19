@@ -19,16 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+//Route::resource ('Conductor','ConductorController');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource ('Conductor','ConductorController');
-
-Route::resource('Ruta','RutaController');
-
-Route::resource('Tipo_Punto', 'Tipo_PuntoController');
-
-Route::resource('Punto_Ruta', 'Punto_RutaController');
-
-Route::resource('Punto', 'PuntoController');
+//Route::resource('Ruta','RutaController');
+//
+//Route::resource('Tipo_Punto', 'Tipo_PuntoController');
+//
+//Route::resource('Punto_Ruta', 'Punto_RutaController');
+//
+//Route::resource('Punto', 'PuntoController');
