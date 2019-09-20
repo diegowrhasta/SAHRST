@@ -73,7 +73,7 @@ class ConductorController extends Controller
             return response()->json(['Message'=>'No hay conductores registrados','Code'=>404],404);
         }
         else{
-            return response()->json(['data'=>$conductores],200);
+            return response()->json($conductores,200);
         }
     }
 
