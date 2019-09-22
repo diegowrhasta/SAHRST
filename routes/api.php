@@ -30,3 +30,6 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::resource('Punto_Ruta', 'Punto_RutaController');
     Route::resource('Punto', 'PuntoController');
 });
+
+Route::post('Conductor/{Conductor}/profile_pic', 'ConductorController@update_avatar');
+Route::get('Conductor/{Conductor}/profile_pic', 'ConductorController@get_avatar');

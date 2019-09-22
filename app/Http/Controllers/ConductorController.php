@@ -6,6 +6,8 @@ use App\Conductor;
 use App\Http\BL\ConductorBL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Auth;
+use Image;
 
 class ConductorController extends Controller
 {
@@ -123,5 +125,23 @@ class ConductorController extends Controller
         else{
             return response()->json(['Message'=>"Eliminación fallida",'error_code'=>200],200);
         }
+    }
+
+    public function update_avatar(Request $request, $conductor_id){
+        //Handle the user upload of avatar
+        if($request->hasFile('avatar')){
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
+    		$conductor= Conductor::find($conductor_id);
+    		$conductor->avatar = $filename;
+    		$conductor->save();
+        }
+    }
+    public function get_avatar($conductor_id){
+        $conductor = Conductor::find($conductor_id);
+        $avatar = $conductor->avatar;
+        $img = Image::make(file_get_contents(public_path('/uploads/avatars/' . $avatar )));
+        return $img->response();
     }
 }
