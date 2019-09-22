@@ -23,6 +23,7 @@ class CreateConductorTable extends Migration
             $table->string('direccion');
             $table->integer('celular');
             $table->integer('telefono');
+            $table->string('avatar')->default('default.jpg');
             $table->bigInteger('ruta_id')->unsigned()->nullable();
             $table->foreign('ruta_id')->references('ruta_id')->on('rutas');
             $table->softDeletes();
