@@ -9,15 +9,9 @@ use Illuminate\Support\Facades\Validator;
 
 class ConductorController extends Controller
 {
-//    public function index()
-//    {
-//        //
-//    }
-//
-//    public function create()
-//    {
-//        //
-//    }
+    public function __construct(){
+        $this->middleware('checkBoss')->except(['show']);
+    }
 
     public function store(Request $request){
         $rules = [
