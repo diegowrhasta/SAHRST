@@ -135,7 +135,7 @@ class ConductorController extends Controller
             Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
     		$conductor= Conductor::find($conductor_id);
     		$conductor->avatar = $filename;
-    		$conductor->save();
+            $conductor->save();
         }
     }
     public function get_avatar($conductor_id){
