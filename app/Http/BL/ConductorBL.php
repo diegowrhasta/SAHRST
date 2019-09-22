@@ -45,4 +45,9 @@ class ConductorBL
             return $conductores;
         }
     }
+    public function deleteConductor($conductor_id){
+        $conductorDAO = new ConductorDAO;
+        $resp = $conductorDAO->dbDeleteConductor($conductor_id);
+        return $resp;
+    }
 }

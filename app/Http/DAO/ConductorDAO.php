@@ -50,4 +50,13 @@ class ConductorDAO
             return false;
         }
     }
+    public function dbDeleteConductor($conductor_id){
+        try{
+            Conductor::destroy($conductor_id);
+            return true;
+        }
+        catch(\Exception $exception){
+            return false;
+        }
+    }
 }
