@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
             else
                 $type = 'encargado';
             User::create([
-                'username' => $faker->name,
+                'name' => $faker->name,
                 'email' => $faker->email,
                 'type' => $type,
                 'password' => Hash::make('user'),
