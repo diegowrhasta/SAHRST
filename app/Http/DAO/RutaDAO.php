@@ -22,4 +22,28 @@ class RutaDAO
             ], 400);
         }
     }
+    public function dbGetRutas(){
+        try{
+            $rutas = Ruta::all();
+            return $rutas;
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+            ], 400);
+        }
+    }
+    public function dbGetRoute($ruta_id){
+        try{
+            $ruta = Ruta::find($ruta_id);
+            return $ruta;
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+            ], 400);
+        }
+    }
 }

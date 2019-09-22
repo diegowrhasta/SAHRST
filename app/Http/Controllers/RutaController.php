@@ -26,4 +26,19 @@ class RutaController extends Controller
             return $resp;
         }
     }
+    public function index(){
+        $rutaBL = new RutaBL;
+        $routes = $rutaBL->getRoutes();
+        if(!$routes){
+            return response()->json(['Message'=>'No hay conductores registrados','Code'=>404],404);
+        }
+        else{
+            return response()->json($routes,200);
+        }
+    }
+    public function show($ruta_id){
+        $rutaBL = new RutaBL;
+        $ruta = $rutaBL->getRoute($ruta_id);
+        return response()->json($ruta);
+    }
 }
