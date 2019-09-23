@@ -10,6 +10,7 @@ namespace App\Http\BL;
 
 
 use App\Http\DAO\ConductorDAO;
+use Image;
 
 class ConductorBL
 {
@@ -73,5 +74,35 @@ class ConductorBL
             return false;
         }
 
+    }
+    public function prepareProfilePic($avatar, $filename, $conductor_id){
+        $conductorDAO = new ConductorDAO;
+        $conductor = $conductorDAO->getConductor($conductor_id);
+        if(!$conductor){
+            return false;
+        }
+        else{
+            $conductor->avatar = $filename;
+            $resp_pic = $conductorDAO->UploadProfilePic($avatar,$filename);
+            $resp_edit = $conductorDAO->dbEditConductor($conductor);
+            if($resp_pic && $resp_edit){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
+    public function getProfilePic($conductor_id){
+        $conductorDAO = new ConductorDAO;
+        $conductor = $conductorDAO->getConductor($conductor_id);
+        $avatar = $conductor->avatar;
+        $profile_pic = $conductorDAO->retrieveProfilePic($avatar);
+        if(!$profile_pic){
+            return false;
+        }
+        else{
+            return $profile_pic;
+        }
     }
 }

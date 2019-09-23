@@ -11,7 +11,7 @@ namespace App\Http\DAO;
 
 use App\Conductor;
 use Illuminate\Database\QueryException;
-
+use Image;
 class ConductorDAO
 {
 
@@ -63,6 +63,25 @@ class ConductorDAO
         try{
             $conductor_old->save();
             return true;
+        }
+        catch(\Exception $exception){
+            return false;
+        }
+    }
+    public function UploadProfilePic($avatar,$filename){
+        try{
+            $path = public_path('/uploads/avatars/' . $filename);
+            Image::make($avatar->getRealPath())->resize(300, 300)->save($path);
+            return true;
+        }
+        catch(\Exception $exception){
+            return false;
+        }
+    }
+    public function retrieveProfilePic($avatar){
+        try{
+            $img = Image::make(file_get_contents(public_path('/uploads/avatars/' . $avatar )));
+            return $img;
         }
         catch(\Exception $exception){
             return false;
