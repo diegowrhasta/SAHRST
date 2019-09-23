@@ -141,10 +141,7 @@ class ConductorController extends Controller
                 ],400);
             }
             else{
-                return response()->json([
-                    'Message'=>'Subida Exitosa',
-                    'Code'=>202
-                ],202);
+                return $resp;
             }
         }
     }
