@@ -68,7 +68,7 @@ class ConductorDAO
             return false;
         }
     }
-    public function UploadProfilePic($avatar,$filename){
+    public function UploadProfilePic($avatar,$filename){ //Found the final form for responses
         try{
             $path = public_path('/uploads/avatars/' . $filename);
             Image::make($avatar->getRealPath())->resize(300, 300)->save($path);
