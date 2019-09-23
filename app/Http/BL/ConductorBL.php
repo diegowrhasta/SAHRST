@@ -85,8 +85,8 @@ class ConductorBL
             $conductor->avatar = $filename;
             $resp_pic = $conductorDAO->UploadProfilePic($avatar,$filename);
             $resp_edit = $conductorDAO->dbEditConductor($conductor);
-            if($resp_pic && $resp_edit){
-                return true;
+            if($resp_edit){
+                return $resp_pic;
             }
             else{
                 return false;

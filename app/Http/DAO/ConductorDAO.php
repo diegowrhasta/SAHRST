@@ -75,7 +75,10 @@ class ConductorDAO
             return true;
         }
         catch(\Exception $exception){
-            return false;
+            return response()->json([
+                'Error'=> $exception->getMessage(),
+                'Code'=>$exception->getCode(),
+            ], 400);
         }
     }
     public function retrieveProfilePic($avatar){
