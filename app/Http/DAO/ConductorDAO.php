@@ -72,11 +72,14 @@ class ConductorDAO
         try{
             $path = public_path('/uploads/avatars/' . $filename);
             Image::make($avatar->getRealPath())->resize(300, 300)->save($path);
-            return true;
+            return response()->json([
+                'Message'=> 'Subida Exitosa',
+                'Code'=>202,
+            ], 202);
         }
         catch(\Exception $exception){
             return response()->json([
-                'Error'=> $exception->getMessage(),
+                'Message'=> $exception->getMessage(),
                 'Code'=>$exception->getCode(),
             ], 400);
         }

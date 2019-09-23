@@ -134,15 +134,7 @@ class ConductorController extends Controller
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
             $conductorBL = new ConductorBL;
             $resp = $conductorBL->prepareProfilePic($avatar,$filename,$conductor_id);
-            if(!$resp){
-                return response()->json([
-                    'Message'=>'Subida Fallida',
-                    'Code'=>400
-                ],400);
-            }
-            else{
-                return $resp;
-            }
+            return $resp;
         }
     }
     public function get_avatar($conductor_id){
