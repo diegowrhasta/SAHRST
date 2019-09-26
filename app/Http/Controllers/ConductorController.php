@@ -131,7 +131,7 @@ class ConductorController extends Controller
         //Handle the user upload of avatar
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            $filename = $conductor_id . '.' . $avatar->getClientOriginalExtension();
             $conductorBL = new ConductorBL;
             $resp = $conductorBL->prepareProfilePic($avatar,$filename,$conductor_id);
             return $resp;
