@@ -59,7 +59,7 @@ class ConductorController extends Controller
             return response()->json(['Message'=>'Conductor no se encontró','Code'=>404],404);
         }
         else{
-            return response()->json([$conductor],200);
+            return response()->json($conductor,200);
         }
     }
     public function index(){
@@ -120,10 +120,10 @@ class ConductorController extends Controller
         $conductorBL = new ConductorBL;
         $resp = $conductorBL->deleteConductor($conductor_id);
         if(!$resp){
-            return response()->json(['Message'=>"Eliminación exitosa",'error_code'=>500],500);
+            return response()->json(['Message'=>"Eliminación fallida",'error_code'=>500],500);
         }
         else{
-            return response()->json(['Message'=>"Eliminación fallida",'error_code'=>200],200);
+            return response()->json(['Message'=>"Eliminación exitosa",'error_code'=>200],200);
         }
     }
 

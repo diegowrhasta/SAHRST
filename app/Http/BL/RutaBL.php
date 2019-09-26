@@ -14,7 +14,7 @@ class RutaBL
     }
     public function getRoutes(){
         $rutaDAO = new RutaDAO;
-        $resp = $rutaDAO->dbGetRoutes();
+        $resp = $rutaDAO->dbGetRutas();
         return $resp;
     }
     public function getRoute($ruta_id){
