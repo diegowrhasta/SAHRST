@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Conductor;
 use App\Http\BL\ConductorBL;
+use App\Http\POPO\msg;
+use App\Http\POPO\rules;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Auth;
@@ -16,31 +18,10 @@ class ConductorController extends Controller
     }
 
     public function store(Request $request){
-        $rules = [
-            'nombres'=>'bail|required|max:45',
-            'ap_paterno'=>'bail|required|max:25',
-            'ap_materno'=>'bail|required|max:25',
-            'fecha_nacimiento'=>'bail|date',
-            'ci'=>'bail|required|numeric',
-            'direccion'=>'required',
-            'celular'=>'bail|required|numeric',
-            'telefono'=>'numeric',
-        ];
-        $msg = [
-            'nombres.required'=>'El campo nombre es requerido',
-            'nombres.max'=>'El campo nombre debe tener como máximo 45 caracteres',
-            'ap_paterno.required'=>'El campo para apellido paterno es requerido',
-            'ap_paterno.max'=>'El campo para apellido paterno debe tener como máximo 25 caracteres',
-            'ap_materno.required'=>'El campo para apellido materno es requerido',
-            'ap_materno.max'=>'El campo para apellido materno debe tener como máximo 25 caracteres',
-            'fecha_nacimiento.date'=>'Formato de fecha es incorrecto',
-            'ci.required'=>'Número de identificación requerido',
-            'ci.numeric'=>'El campo CI debe ser de tipo numérico',
-            'direccion.required'=>'La dirección es requerida',
-            'celular.required'=>'El número de celular es requerido',
-            'celular.numeric'=>'El número de celular debe ser numérico',
-            'telefono.numeric'=>'El número de telef debe ser numérico',
-        ];
+        $msgClass = new msg;
+        $rulesClass = new rules;
+        $msg = $msgClass->messagesConductor();
+        $rules = $rulesClass->rulesConductor();
         $validator = Validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
@@ -74,31 +55,10 @@ class ConductorController extends Controller
     }
 
     public function update(Request $request, $conductor_id){
-        $rules = [
-            'nombres'=>'bail|required|max:45',
-            'ap_paterno'=>'bail|required|max:25',
-            'ap_materno'=>'bail|required|max:25',
-            'fecha_nacimiento'=>'bail|date',
-            'ci'=>'bail|required|numeric',
-            'direccion'=>'required',
-            'celular'=>'bail|required|numeric',
-            'telefono'=>'numeric',
-        ];
-        $msg = [
-            'nombres.required'=>'El campo nombre es requerido',
-            'nombres.max'=>'El campo nombre debe tener como máximo 45 caracteres',
-            'ap_paterno.required'=>'El campo para apellido paterno es requerido',
-            'ap_paterno.max'=>'El campo para apellido paterno debe tener como máximo 25 caracteres',
-            'ap_materno.required'=>'El campo para apellido materno es requerido',
-            'ap_materno.max'=>'El campo para apellido materno debe tener como máximo 25 caracteres',
-            'fecha_nacimiento.date'=>'Formato de fecha es incorrecto',
-            'ci.required'=>'Número de identificación requerido',
-            'ci.numeric'=>'El campo CI debe ser de tipo numérico',
-            'direccion.required'=>'La dirección es requerida',
-            'celular.required'=>'El número de celular es requerido',
-            'celular.numeric'=>'El número de celular debe ser numérico',
-            'telefono.numeric'=>'El número de telef debe ser numérico',
-        ];
+        $msgClass = new msg;
+        $rulesClass = new rules;
+        $msg = $msgClass->messagesConductor();
+        $rules = $rulesClass->rulesConductor();
         $validator = Validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
                 return response()->json($validator->errors()->toJson(), 400);
