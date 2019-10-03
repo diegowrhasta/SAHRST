@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoundRobinR extends Migration
+class CreateVehiculosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateRoundRobinR extends Migration
      */
     public function up()
     {
-        Schema::create('round_robin_r', function (Blueprint $table) {
-            $table->bigIncrements('round_robin_id');
-            $table->bigInteger('next_ruta_id');
+        Schema::create('vehiculos', function (Blueprint $table) {
+            $table->bigIncrements('vehiculo_id');
+            $table->string('placa');
+            $table->integer('modelo');
+            $table->string('marca');
+            $table->string('color');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class CreateRoundRobinR extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('round_robin_r');
+        Schema::dropIfExists('vehiculos');
     }
 }
