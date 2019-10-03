@@ -30,7 +30,17 @@ class RutaBL
         $checkConductor = $conductorDAO->getConductor($conductor_id);
         if($countRoutes>1 && $checkConductor){
             $nextRoute = $rutaDAO->retrieveNextRoute();
-            return $nextRoute;
+            $max = $nextRoute[0]['next_ruta_id'];
+            $resp = $this->nextRoute($countRoutes,$max);
+            if($resp){
+                return $nextRoute;
+            }
+            else{
+                return response()->json([
+                    'Error'=> 'Could not update next route',
+                    'Code'=>500,
+                ], 500);
+            }
         }
         else{
             return response()->json([
@@ -39,7 +49,21 @@ class RutaBL
             ], 400);
         }
     }
-    public function nextRoute(){
-
+    public function nextRoute($countRoutes,$max){
+        try{
+            $updatedValue = 0;
+            if(($max+1)>$countRoutes){
+                $updatedValue = 1;
+            }
+            else{
+                $updatedValue = $countRoutes++;
+            }
+            $rutaDAO = new RutaDAO;
+            $rutaDAO->updateNextRoute($updatedValue);
+            return true;
+        }
+        catch(\Exception $exception){
+            return false;
+        }
     }
 }
