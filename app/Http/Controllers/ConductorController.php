@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Conductor;
 use App\Http\BL\ConductorBL;
+use App\Http\BL\RutaBL;
 use App\Http\POPO\msg;
 use App\Http\POPO\rules;
 use Illuminate\Http\Request;
@@ -109,5 +110,10 @@ class ConductorController extends Controller
         else{
             return $profile_pic->response();
         }
+    }
+    public function retrieveRoute($conductor_id){
+        $rutaBL = new RutaBL;
+        $nextRoute = $rutaBL->getNextRoute($conductor_id);
+        return response()->json([$nextRoute],200);
     }
 }

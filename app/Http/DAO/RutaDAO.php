@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\DAO;
 
+use App\Round_RobinR;
 use App\Ruta;
 use Illuminate\Database\QueryException;
 
@@ -37,6 +38,18 @@ class RutaDAO
     public function dbGetRoute($ruta_id){
         try{
             $ruta = Ruta::find($ruta_id);
+            return $ruta;
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+            ], 400);
+        }
+    }
+    public function retrieveNextRoute(){
+        try{
+            $ruta = Round_RobinR::find(1);
             return $ruta;
         }
         catch(\Exception $exception){
