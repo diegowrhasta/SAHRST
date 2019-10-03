@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Round_RobinR extends Model
+class Round_Robinr extends Model
 {
     protected $table = 'round_robinr';
     protected $primaryKey = 'round_robin_id';

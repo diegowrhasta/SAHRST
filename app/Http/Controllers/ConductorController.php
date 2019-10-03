@@ -114,6 +114,6 @@ class ConductorController extends Controller
     public function retrieveRoute($conductor_id){
         $rutaBL = new RutaBL;
         $nextRoute = $rutaBL->getNextRoute($conductor_id);
-        return response()->json([$nextRoute],200);
+        return response()->json($nextRoute,200);
     }
 }

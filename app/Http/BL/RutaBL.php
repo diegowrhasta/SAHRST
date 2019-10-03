@@ -30,7 +30,7 @@ class RutaBL
         $checkConductor = $conductorDAO->getConductor($conductor_id);
         if($countRoutes>1 && $checkConductor){
             $nextRoute = $rutaDAO->retrieveNextRoute();
-            return $nextRoute->only['next_ruta_id'];
+            return $nextRoute;
         }
         else{
             return response()->json([
@@ -40,6 +40,6 @@ class RutaBL
         }
     }
     public function nextRoute(){
-        
+
     }
 }

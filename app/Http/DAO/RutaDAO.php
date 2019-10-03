@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\DAO;
 
-use App\Round_RobinR;
+use App\Round_Robinr;
 use App\Ruta;
 use Illuminate\Database\QueryException;
 
@@ -49,7 +49,7 @@ class RutaDAO
     }
     public function retrieveNextRoute(){
         try{
-            $ruta = Round_RobinR::find(1);
+            $ruta = Round_Robinr::get('next_ruta_id');
             return $ruta;
         }
         catch(\Exception $exception){
