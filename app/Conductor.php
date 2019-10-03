@@ -22,4 +22,7 @@ class Conductor extends Model
     public function ruta(){
         return $this->belongsTo('App\Ruta','ruta_id','ruta_id');
     }
+    public function conductor_vehiculo(){
+        return $this->hasMany('App\Conductor_Vehiculo','conductor_id','conductor_id');
+    }
 }
