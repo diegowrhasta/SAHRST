@@ -32,5 +32,12 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('Conductor/{Conductor}/profile_pic', 'ConductorController@update_avatar');
     Route::get('Conductor/{Conductor}/profile_pic', 'ConductorController@get_avatar');
     Route::get('Conductor/{Conductor}/get_route', 'ConductorController@retrieveRoute');
+    Route::get('Vehiculo/{Vehiculo}', 'VehiculoController@show');
+    Route::get('Vehiculo', 'VehiculoController@index');
+    Route::post('Vehiculo', 'VehiculoController@store');
+    Route::delete('Vehiculo/{Vehiculo}', 'VehiculoController@destroy');
+    Route::put('Vehiculo/{Vehiculo}', 'VehiculoController@update');
+    Route::get('Conductor/{Conductor}/Vehiculo', 'ConductorController@getVehiculos');
+    Route::get('Conductor/{Conductor}/Vehiculo/{Vehiculo}', 'ConductorController@getVehiculo');
 });
 

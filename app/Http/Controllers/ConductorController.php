@@ -116,4 +116,10 @@ class ConductorController extends Controller
         $nextRoute = $rutaBL->getNextRoute($conductor_id);
         return response()->json($nextRoute,200);
     }
+    public function getVehiculos($conductor_id){
+        
+    }
+    public function getVehiculo($conductor_id,$vehiculo_id){
+
+    }
 }

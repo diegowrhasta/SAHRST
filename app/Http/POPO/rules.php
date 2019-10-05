@@ -15,4 +15,12 @@ class rules{
             'telefono'=>'numeric',
         ];
     }
+    public function rulesVehiculo(){
+        return $rules = [
+            'placa'=>'required|max:10|string',
+            'modelo'=>'required|int',
+            'marca'=>'required|max:50|string',
+            'color'=>'required|max:15|string',
+        ];
+    }
 }

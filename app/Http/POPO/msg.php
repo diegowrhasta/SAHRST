@@ -21,4 +21,19 @@ class msg{
             'telefono.numeric'=>'El número de telef debe ser numérico',
         ];
     }
+    public function messagesVehiculo(){
+        return $msg = [
+            'placa.required'=>'El campo de placa es requerido',
+            'placa.max'=>'El campo placa debe tener como máximo 15 caracteres',
+            'placa.string'=>'Campo placa inválido',
+            'modelo.required'=>'El campo modelo es requerido',
+            'modelo.int'=>'El campo modelo debe ser un entero',
+            'marca.required'=>'El campo de marca es requerido',
+            'marca.max'=>'El campo marca debe tener como máximo 50 caracteres',
+            'marca.string'=>'Campo marca inválido',
+            'color.required'=>'El campo de color es requerido',
+            'color.max'=>'El campo color debe tener como máximo 15 caracteres',
+            'color.string'=>'Campo color inválido',
+        ];
+    }
 }
