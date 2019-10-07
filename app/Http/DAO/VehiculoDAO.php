@@ -85,4 +85,61 @@ class VehiculoDAO{
             ], 400);
         }
     }
+    public function dbGetVehiculobyIdFromConductor($conductor_id,$vehiculo_id){
+        try{
+            $vehiculo = DB::select('select * from vehiculos a, conductores b, conductor_vehiculo c 
+            where a.vehiculo_id = ?
+            and b.conductor_id = ?
+            and c.vehiculo_id = a.vehiculo_id
+            and c.conductor_id = b.conductor_id', [$vehiculo_id,$conductor_id]);
+            if($vehiculo){
+                return response()->json($vehiculo,200);
+            }
+            else{
+                return response()->json([
+                    'message' => 'Vehicle not found',
+                    'code' => 404,
+                ]);
+            }
+        }
+        catch (QueryException $exception){
+            return response()->json([
+                'Error'=> 'Error interno del servidor',
+            ], 500);
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error'=> $exception->getMessage(),
+                'Code'=>$exception->getCode(),
+            ], 400);
+        }
+    }
+    public function dbGetVehiculosFromConductor($conductor_id){
+        try{
+            $vehiculos = DB::select('select * from vehiculos a, conductores b, conductor_vehiculo c 
+            where b.conductor_id = ?
+            and b.conductor_id = c.conductor_id 
+            and a.vehiculo_id = c.vehiculo_id', [$conductor_id]);
+            if($vehiculos){
+                return response()->json($vehiculos,200);
+            }
+            else{
+                return response()->json([
+                    'message' => 'No Vehicles',
+                    'code' => 404,
+                ]);
+            }
+        }
+        catch (QueryException $exception){
+            return response()->json([
+                'Error'=> 'Error interno del servidor',
+            ], 500);
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error'=> $exception->getMessage(),
+                'Code'=>$exception->getCode(),
+            ], 400);
+        }
+    }
 }

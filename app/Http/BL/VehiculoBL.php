@@ -51,4 +51,14 @@ class VehiculoBL{
         $resp = $vehiculoDAO->dbDeleteVehiculo($vehiculo_id);
         return $resp;
     }
+    public function getConductorVehiculobyId($conductor_id,$vehiculo_id){
+        $vehiculoDAO = new VehiculoDAO;
+        $resp = $vehiculoDAO->dbGetVehiculobyIdFromConductor($conductor_id,$vehiculo_id);
+        return $resp;
+    }
+    public function getConductorVehiculos($conductor_id){
+        $vehiculoDAO = new VehiculoDAO;
+        $resp = $vehiculoDAO->dbGetVehiculosFromConductor($conductor_id);
+        return $resp;
+    }
 }

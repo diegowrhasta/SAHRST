@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Conductor;
 use App\Http\BL\ConductorBL;
 use App\Http\BL\RutaBL;
+use App\Http\BL\VehiculoBL;
 use App\Http\POPO\msg;
 use App\Http\POPO\rules;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Auth;
-use Image;
 
 class ConductorController extends Controller
 {
@@ -116,10 +114,14 @@ class ConductorController extends Controller
         $nextRoute = $rutaBL->getNextRoute($conductor_id);
         return response()->json($nextRoute,200);
     }
-    public function getVehiculos($conductor_id){
-        
-    }
     public function getVehiculo($conductor_id,$vehiculo_id){
-
+        $vehiculoBL = new VehiculoBL;
+        $resp = $vehiculoBL->getConductorVehiculobyId($conductor_id,$vehiculo_id);
+        return $resp;
+    }
+    public function getVehiculos($conductor_id){
+        $vehiculoBL = new VehiculoBL;
+        $resp = $vehiculoBL->getConductorVehiculos($conductor_id);
+        return $resp;
     }
 }
