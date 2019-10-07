@@ -39,5 +39,6 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::put('Vehiculo/{Vehiculo}', 'VehiculoController@update');
     Route::get('Conductor/{Conductor}/Vehiculo', 'ConductorController@getVehiculos');
     Route::get('Conductor/{Conductor}/Vehiculo/{Vehiculo}', 'ConductorController@getVehiculo');
+    Route::post('Conductor_Vehiculo', 'Conductor_VehiculoController@store');
 });
 

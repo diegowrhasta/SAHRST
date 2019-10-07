@@ -29,7 +29,6 @@ class ConductorController extends Controller
         $conductorBL = new ConductorBL();
         $resp = $conductorBL->saveConductor($data);
         return $resp;
-
     }
 
     public function show($conductor_id){

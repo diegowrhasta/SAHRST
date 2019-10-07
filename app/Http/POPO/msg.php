@@ -36,4 +36,12 @@ class msg{
             'color.string'=>'Campo color inválido',
         ];
     }
+    public function messagesConductor_Vehiculo(){
+        return $msg = [
+            'conductor_id.required'=>'El campo conductor_id es requerido',
+            'conductor_id.int'=>'El campo conductor_id debe ser un entero',
+            'vehiculo_id.required'=>'El campo vehiculo_id es requerido',
+            'vehiculo_id.int'=>'El campo vehiculo_id debe ser un entero',
+        ];
+    }
 }

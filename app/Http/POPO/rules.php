@@ -23,4 +23,10 @@ class rules{
             'color'=>'required|max:15|string',
         ];
     }
+    public function rulesConductor_Vehiculo(){
+        return $rules = [
+            'conductor_id'=>'required|int',
+            'vehiculo_id'=>'required|int',
+        ];
+    }
 }

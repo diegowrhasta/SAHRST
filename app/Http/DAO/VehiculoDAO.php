@@ -4,6 +4,7 @@ namespace App\Http\DAO;
 
 use App\Vehiculo;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class VehiculoDAO{
     public function getList(){
