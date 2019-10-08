@@ -11,6 +11,7 @@ namespace App\Http\DAO;
 
 use App\Conductor;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 use Image;
 class ConductorDAO
 {
@@ -93,4 +94,26 @@ class ConductorDAO
             return false;
         }
     }
+    public function dbGetConductorNextPuntoControl($conductor_id){
+        try{
+            $next_punto_control = DB::select('select a.nombre from puntos a, puntos_ruta b, rutas c, conductores d, tipo_puntos e
+            where a.tipo_punto_id=2
+            and c.ruta_id = b.ruta_id
+            and a.punto_id = b.punto_id
+            and c.ruta_id = d.ruta_id
+            and d.conductor_id = ?
+            and a.punto_id = d.next_punto_control
+            and e.tipo_punto_id=a.tipo_punto_id;', [$conductor_id]);
+            return response()->json($next_punto_control,200);
+        } catch (QueryException $exception){
+            return response()->json([
+                'Error'=> 'Error interno del servidor',
+            ], 500);
+        } catch (\Exception $exception){
+            return response()->json([
+                'Error'=> $exception->getMessage(),
+                'Code'=>$exception->getCode(),
+            ], 400);
+        }   
+    }   
 }

@@ -19,6 +19,7 @@ class CreatePuntosRutaTable extends Migration
             $table->foreign('punto_id')->references('punto_id')->on('puntos');
             $table->bigInteger('ruta_id')->unsigned()->nullable();
             $table->foreign('ruta_id')->references('ruta_id')->on('rutas');
+            $table->integer('posicion');
             $table->softDeletes();
             $table->timestamps();
         });

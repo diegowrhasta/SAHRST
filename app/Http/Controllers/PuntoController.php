@@ -10,12 +10,14 @@ class PuntoController extends Controller
 {
     public function store(Request $request){
         $rules = [
-            'nombre'=>'bail|required|max:45',
+            'nombre'=>'bail|required|string|max:45',
             'tipo_punto_id'=>'bail|required|numeric',
         ];
         $msg = [
             'nombre.required'=>'El campo nombre es requerido',
-            'tipo_punto_id.numeric'=>'El campo debe ser numérico',
+            'nombre.string'=>'El campo nombre debe ser texto',
+            'tipo_punto_id.required'=>'El campo tipo_punto_id debe es requerido',
+            'tipo_punto_id.numeric'=>'El campo tipo_punto_id debe ser numérico',
         ];
         $validator = Validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){

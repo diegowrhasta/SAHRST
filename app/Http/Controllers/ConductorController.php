@@ -123,4 +123,15 @@ class ConductorController extends Controller
         $resp = $vehiculoBL->getConductorVehiculos($conductor_id);
         return $resp;
     }
+    public function getPuntoControl($conductor_id){
+        $conductorBL = new ConductorBL;
+        $resp = $conductorBL->retrieveNextPuntoControl($conductor_id);
+        return $resp;
+    }
+    public function goodPuntoControl(){
+
+    }
+    public function badPuntoControl(){
+
+    }
 }

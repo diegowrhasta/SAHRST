@@ -26,6 +26,7 @@ class CreateConductorTable extends Migration
             $table->string('avatar')->default('default.jpg');
             $table->bigInteger('ruta_id')->unsigned()->nullable();
             $table->foreign('ruta_id')->references('ruta_id')->on('rutas');
+            $table->bigInteger('next_punto_control')->unsigned()->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -63,6 +63,8 @@ class ConductorBL
             $conductor_old -> direccion = $conductor_new['direccion'];
             $conductor_old -> celular = $conductor_new['celular'];
             $conductor_old -> telefono = $conductor_new['telefono'];
+            $conductor_old -> ruta_id = $conductor_new['ruta_id'];
+            $conductor_old -> next_punto_control = $conductor_new['next_punto_control'];
             if(!$conductorDAO->dbEditConductor($conductor_old)){
                 return false;
             }
@@ -103,6 +105,20 @@ class ConductorBL
         }
         else{
             return $profile_pic;
+        }
+    }
+    public function retrieveNextPuntoControl($conductor_id){
+        $conductorDAO = new ConductorDAO;
+        $conductor = $conductorDAO->getConductor($conductor_id);
+        if($conductor){
+            $nextPuntoControl = $conductorDAO->dbGetConductorNextPuntoControl($conductor_id);
+            return $nextPuntoControl;
+        }
+        else{
+            return response()->json([
+                "message" => 'Conductor invalid',
+                'code' => 404,
+            ],404);
         }
     }
 }

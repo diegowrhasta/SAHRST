@@ -12,12 +12,15 @@ class Punto_RutaController extends Controller
         $rules = [
             'punto_id'=>'bail|required|numeric',
             'ruta_id'=>'bail|required|numeric',
+            'posicion'=>'bail|required|int'
         ];
         $msg = [
-            'punto_id.numeric'=>'El campo debe ser numérico',
-            'punto_id.required'=>'El campo es requerido',
-            'ruta_id.numeric'=>'El campo debe ser numérico',
-            'ruta_id.required'=>'El campo es requerido',
+            'punto_id.numeric'=>'El campo punto_id debe ser numérico',
+            'punto_id.required'=>'El campo punto_id es requerido',
+            'ruta_id.numeric'=>'El campo ruta_id debe ser numérico',
+            'ruta_id.required'=>'El campo ruta_id es requerido',
+            'posicion.numeric'=>'El campo posicion debe ser entero',
+            'posicion.required'=>'El campo posicion es requerido',
         ];
         $validator = Validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){

@@ -13,7 +13,7 @@ class Punto_Ruta extends Model
     protected $softDelete = true;
     
     protected $fillable = [
-        'punto_id','ruta_id'
+        'punto_id','ruta_id', 'posicion',
     ];
     
     protected $hidden = [
