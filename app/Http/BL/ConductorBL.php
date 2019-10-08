@@ -112,7 +112,14 @@ class ConductorBL
         $conductor = $conductorDAO->getConductor($conductor_id);
         if($conductor){
             $nextPuntoControl = $conductorDAO->dbGetConductorNextPuntoControl($conductor_id);
-            return $nextPuntoControl;
+            if($nextPuntoControl){
+                return response()->json($nextPuntoControl,200);
+            }
+            else{
+                return response()->json([
+                    'Error'=> 'Error interno del servidor',
+                ], 500);
+            }
         }
         else{
             return response()->json([
@@ -120,5 +127,23 @@ class ConductorBL
                 'code' => 404,
             ],404);
         }
+    }
+    public function passNextCheckPoint(array $token, $conductor_id){
+        if($token['pass']==true){
+            $conductorDAO = new ConductorDAO;
+            $resp = $conductorDAO->dbAdvanceCheckpoint($conductor_id);
+            return $resp;
+        }
+        else{
+            return response()->json([
+                'message' => 'Body not valid',
+                'code' => 400,
+            ]);
+        }
+    }
+    public function preparereportConductor($conductor_id){
+        $repo = new ConductorDAO;
+        $resp = $conductorDAO->DBSaveConductorReport($conductor_id);
+        return $resp;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\BL\ConductorBL;
+use App\Http\BL\ReporteBL;
 use App\Http\BL\RutaBL;
 use App\Http\BL\VehiculoBL;
 use App\Http\POPO\msg;
@@ -128,10 +129,10 @@ class ConductorController extends Controller
         $resp = $conductorBL->retrieveNextPuntoControl($conductor_id);
         return $resp;
     }
-    public function goodPuntoControl(){
-
-    }
-    public function badPuntoControl(){
-
+    public function goodPuntoControl(Request $request, $conductor_id){
+        $conductorBL = new ConductorBL;
+        $token = $request->toArray();
+        $resp = $conductorBL->passNextCheckPoint($token,$conductor_id);
+        return $resp;
     }
 }
