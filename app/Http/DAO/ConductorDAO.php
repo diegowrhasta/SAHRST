@@ -88,7 +88,7 @@ class ConductorDAO
     public function retrieveProfilePic($avatar){
         try{
             $img = Image::make(file_get_contents(public_path('/uploads/avatars/'. $avatar)));
-            return $img;
+            return response($img)->header('Content-type','image/jpg');
         }
         catch(\Exception $exception){
             return response()->json([
