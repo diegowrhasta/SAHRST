@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Validator;
 
 class ConductorController extends Controller
 {
-    public function __construct(){
-        $this->middleware('checkBoss')->except(['show']);
-    }
-
     public function store(Request $request){
         $msgClass = new msg;
         $rulesClass = new rules;
@@ -53,6 +49,49 @@ class ConductorController extends Controller
         }
     }
 
+    //Get Avatar
+    public function get_avatar($conductor_id){
+        $conductorBL = new ConductorBL;
+        $profile_pic = $conductorBL->getProfilePic($conductor_id);
+        if(!$profile_pic){
+            return response()->json([
+                'Message'=>'Imagen no encontrada',
+                'Code'=>404
+            ],400);
+        }
+        else{
+            return $profile_pic->response();
+        }
+    }
+
+    //Get current Route
+    public function retrieveRoute($conductor_id){
+        $rutaBL = new RutaBL;
+        $nextRoute = $rutaBL->getNextRoute($conductor_id);
+        return response()->json($nextRoute,200);
+    }
+
+    //Get i assigned Vehiculo
+    public function getVehiculo($conductor_id,$vehiculo_id){
+        $vehiculoBL = new VehiculoBL;
+        $resp = $vehiculoBL->getConductorVehiculobyId($conductor_id,$vehiculo_id);
+        return $resp;
+    }
+
+    //Get list of assigned Vehiculos
+    public function getVehiculos($conductor_id){
+        $vehiculoBL = new VehiculoBL;
+        $resp = $vehiculoBL->getConductorVehiculos($conductor_id);
+        return $resp;
+    }
+
+    //Retrieve Conductor's PuntoControl
+    public function getPuntoControl($conductor_id){
+        $conductorBL = new ConductorBL;
+        $resp = $conductorBL->retrieveNextPuntoControl($conductor_id);
+        return $resp;
+    }
+
     public function update(Request $request, $conductor_id){
         $msgClass = new msg;
         $rulesClass = new rules;
@@ -75,17 +114,7 @@ class ConductorController extends Controller
         }
     }
 
-    public function destroy($conductor_id){
-        $conductorBL = new ConductorBL;
-        $resp = $conductorBL->deleteConductor($conductor_id);
-        if(!$resp){
-            return response()->json(['Message'=>"Eliminación fallida",'error_code'=>500],500);
-        }
-        else{
-            return response()->json(['Message'=>"Eliminación exitosa",'error_code'=>200],200);
-        }
-    }
-
+    //Update Avatar
     public function update_avatar(Request $request, $conductor_id){
         //Handle the user upload of avatar
         if($request->hasFile('avatar')){
@@ -96,43 +125,31 @@ class ConductorController extends Controller
             return $resp;
         }
     }
-    public function get_avatar($conductor_id){
-        $conductorBL = new ConductorBL;
-        $profile_pic = $conductorBL->getProfilePic($conductor_id);
-        if(!$profile_pic){
-            return response()->json([
-                'Message'=>'Imagen no encontrada',
-                'Code'=>404
-            ],400);
-        }
-        else{
-            return $profile_pic->response();
-        }
-    }
-    public function retrieveRoute($conductor_id){
-        $rutaBL = new RutaBL;
-        $nextRoute = $rutaBL->getNextRoute($conductor_id);
-        return response()->json($nextRoute,200);
-    }
-    public function getVehiculo($conductor_id,$vehiculo_id){
-        $vehiculoBL = new VehiculoBL;
-        $resp = $vehiculoBL->getConductorVehiculobyId($conductor_id,$vehiculo_id);
-        return $resp;
-    }
-    public function getVehiculos($conductor_id){
-        $vehiculoBL = new VehiculoBL;
-        $resp = $vehiculoBL->getConductorVehiculos($conductor_id);
-        return $resp;
-    }
-    public function getPuntoControl($conductor_id){
-        $conductorBL = new ConductorBL;
-        $resp = $conductorBL->retrieveNextPuntoControl($conductor_id);
-        return $resp;
-    }
+
+    //Roll to next Punto Control
     public function goodPuntoControl(Request $request, $conductor_id){
         $conductorBL = new ConductorBL;
         $token = $request->toArray();
         $resp = $conductorBL->passNextCheckPoint($token,$conductor_id);
         return $resp;
+    }
+
+    //Report Bad Conductor
+    public function badPuntoControl(Request $request, $conductor_id){
+        $conductorBL = new ConductorBL;
+        $token = $request->toArray();
+        $resp = $conductorBL->preparereportConductor($token,$conductor_id);
+        return $resp;
+    }
+
+    public function destroy($conductor_id){
+        $conductorBL = new ConductorBL;
+        $resp = $conductorBL->deleteConductor($conductor_id);
+        if(!$resp){
+            return response()->json(['Message'=>"Eliminación fallida",'code'=>500],500);
+        }
+        else{
+            return response()->json(['Message'=>"Eliminación exitosa",'code'=>200],200);
+        }
     }
 }

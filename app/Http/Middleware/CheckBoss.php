@@ -19,6 +19,7 @@ class CheckBoss
         if($type == 'jefe')
             return $next($request);
         return response()->json([
-            'message' => 'Unauthorized'], 401);
+            'message' => 'Unauthorized',
+            'code' => 401], 401);
     }
 }

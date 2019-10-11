@@ -10,6 +10,7 @@ namespace App\Http\BL;
 
 
 use App\Http\DAO\ConductorDAO;
+use App\Http\DAO\ReporteDAO;
 use Image;
 
 class ConductorBL
@@ -141,9 +142,30 @@ class ConductorBL
             ]);
         }
     }
-    public function preparereportConductor($conductor_id){
-        $repo = new ConductorDAO;
-        $resp = $conductorDAO->DBSaveConductorReport($conductor_id);
-        return $resp;
+    public function preparereportConductor(array $data, $conductor_id){
+        if($data['conductor_id']==$conductor_id){
+            $reporteDAO = new ReporteDAO;
+            $resp = $reporteDAO->dbStoreReporte($data);
+            $conductorDAO = new ConductorDAO;
+            $conductor = $conductorDAO->getConductor($conductor_id);
+            $conductor -> ruta_id = null;
+            $conductor -> next_punto_control = null;
+            $finalresponse = $conductorDAO -> dbEditConductor($conductor);
+            if($finalresponse){
+                return $resp;
+            }
+            else{
+                return response()->json([
+                    'message' => 'Could not save Reporte',
+                    'code' => 500,
+                ]);
+            }
+        }
+        else{
+            return response()->json([
+                'message' => 'Body not valid',
+                'code' => 400,
+            ]);
+        }
     }
 }

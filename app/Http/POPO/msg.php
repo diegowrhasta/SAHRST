@@ -13,6 +13,7 @@ class msg{
             'ap_materno.required'=>'El campo para apellido materno es requerido',
             'ap_materno.max'=>'El campo para apellido materno debe tener como máximo 25 caracteres',
             'fecha_nacimiento.date'=>'Formato de fecha es incorrecto',
+            'fecha_nacimiento.required'=>"El campo fecha_nacimiento es requerido",
             'ci.required'=>'Número de identificación requerido',
             'ci.numeric'=>'El campo CI debe ser de tipo numérico',
             'direccion.required'=>'La dirección es requerida',
