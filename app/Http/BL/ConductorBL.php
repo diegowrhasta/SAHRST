@@ -99,9 +99,14 @@ class ConductorBL
     public function getProfilePic($conductor_id){
         $conductorDAO = new ConductorDAO;
         $conductor = $conductorDAO->getConductor($conductor_id);
-        $avatar = $conductor -> avatar;
+        $avatar = $conductor->avatar;
         $profile_pic = $conductorDAO->retrieveProfilePic($avatar);
-        return $profile_pic;
+        if(!$profile_pic){
+            return false;
+        }
+        else{
+            return $profile_pic;
+        }
     }
     public function retrieveNextPuntoControl($conductor_id){
         $conductorDAO = new ConductorDAO;

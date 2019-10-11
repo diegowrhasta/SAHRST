@@ -119,13 +119,17 @@ class ConductorTest extends TestCase
             ]);
     }
 
-    public function testGoodGetAvatar(){
+    public function GoodGetAvatar(){
         //Good Test
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
-        ])->get('/api/Conductor/1/profile_pic');
+        ])->get('/api/Conductor/1');
         $response
-            ->assertStatus(200);
+            ->assertStatus(401)
+            ->assertJson([
+                'message' => 'Unauthorized',
+                'code' => 401,
+            ]);
     }
 }

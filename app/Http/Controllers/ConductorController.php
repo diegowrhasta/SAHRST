@@ -53,7 +53,15 @@ class ConductorController extends Controller
     public function get_avatar($conductor_id){
         $conductorBL = new ConductorBL;
         $profile_pic = $conductorBL->getProfilePic($conductor_id);
-        return $profile_pic;
+        if(!$profile_pic){
+            return response()->json([
+                'Message'=>'Imagen no encontrada',
+                'Code'=>404
+            ],400);
+        }
+        else{
+            return $profile_pic->response();
+        }
     }
 
     //Get current Route
