@@ -12,3 +12,4 @@ npm-debug.log
 yarn-error.log
 sahrst.code-workspace
 /public/uploads/avatars
+/tests/TestingConstants.php

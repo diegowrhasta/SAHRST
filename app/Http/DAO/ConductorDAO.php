@@ -87,11 +87,14 @@ class ConductorDAO
     }
     public function retrieveProfilePic($avatar){
         try{
-            $img = Image::make(file_get_contents(public_path('/uploads/avatars/' . $avatar )));
+            $img = Image::make(file_get_contents(public_path('/uploads/avatars/'. $avatar)));
             return $img;
         }
         catch(\Exception $exception){
-            return false;
+            return response()->json([
+                'Message'=> $exception->getMessage(),
+                'Code'=>$exception->getCode(),
+            ], 400);
         }
     }
     public function dbGetConductorNextPuntoControl($conductor_id){
