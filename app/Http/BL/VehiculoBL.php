@@ -2,6 +2,7 @@
 
 namespace App\Http\BL;
 
+use App\Http\DAO\ConductorDAO;
 use App\Http\DAO\VehiculoDAO;
 
 class VehiculoBL{
@@ -28,6 +29,36 @@ class VehiculoBL{
             return response()->json([$vehiculos],200);
         }
     }
+    public function getConductorVehiculobyId($conductor_id,$vehiculo_id){
+        $conductorDAO = new ConductorDAO;
+        $vehiculoDAO = new VehiculoDAO;
+        $checkConductor = $conductorDAO->getConductor($conductor_id);
+        if($checkConductor){
+            $resp = $vehiculoDAO->dbGetVehiculobyIdFromConductor($conductor_id,$vehiculo_id);
+            return $resp;
+        }
+        else{
+            return response()->json([
+                'message' => 'Conductor not found',
+                'code' => 404,
+            ],404);
+        }
+    }
+    public function getConductorVehiculos($conductor_id){
+        $conductorDAO = new ConductorDAO;
+        $vehiculoDAO = new VehiculoDAO;
+        $checkConductor = $conductorDAO->getConductor($conductor_id);
+        if($checkConductor){
+            $resp = $vehiculoDAO->dbGetVehiculosFromConductor($conductor_id);
+            return $resp;
+        }
+        else{
+            return response()->json([
+                'message' => 'Conductor not found',
+                'code' => 404,
+            ],404);
+        }
+    }
     public function prepareUpdate($vehicle_new,$vehiculo_id){
         $vehiculoDAO = new VehiculoDAO;
         $vehicle_old = $vehiculoDAO->dbgetVehiculo($vehiculo_id);
@@ -49,16 +80,6 @@ class VehiculoBL{
     public function prepareDestroy($vehiculo_id){
         $vehiculoDAO = new VehiculoDAO;
         $resp = $vehiculoDAO->dbDeleteVehiculo($vehiculo_id);
-        return $resp;
-    }
-    public function getConductorVehiculobyId($conductor_id,$vehiculo_id){
-        $vehiculoDAO = new VehiculoDAO;
-        $resp = $vehiculoDAO->dbGetVehiculobyIdFromConductor($conductor_id,$vehiculo_id);
-        return $resp;
-    }
-    public function getConductorVehiculos($conductor_id){
-        $vehiculoDAO = new VehiculoDAO;
-        $resp = $vehiculoDAO->dbGetVehiculosFromConductor($conductor_id);
         return $resp;
     }
 }

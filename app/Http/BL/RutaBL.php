@@ -4,6 +4,7 @@ namespace App\Http\BL;
 
 use App\Http\DAO\ConductorDAO;
 use App\Http\DAO\RutaDAO;
+use App\Http\BL\PuntoBL;
 
 class RutaBL
 {
@@ -30,36 +31,43 @@ class RutaBL
         $checkConductor = $conductorDAO->getConductor($conductor_id);
         if($countRoutes>1 && $checkConductor){
             $nextRoute = $rutaDAO->retrieveNextRoute();
-            $max = $nextRoute[0]['next_ruta_id'];
-            $resp = $this->nextRoute($countRoutes,$max);
+            $current = $nextRoute[0]['next_ruta_id'];
+            $resp = $this->nextRoute($countRoutes,$current,$checkConductor,$conductor_id);
             if($resp){
                 return $nextRoute;
             }
             else{
                 return response()->json([
-                    'Error'=> 'Could not update next route',
-                    'Code'=>500,
+                    'message'=> 'Could not update next route',
+                    'code'=>500,
                 ], 500);
             }
         }
         else{
             return response()->json([
-                'Error'=> 'Invalid number of routes or invalid conductor_id',
-                'Code'=>400,
+                'message'=> 'Invalid number of routes or invalid conductor_id',
+                'code'=>400,
             ], 400);
         }
     }
-    public function nextRoute($countRoutes,$max){
+    function nextRoute($countRoutes,$current,$checkConductor,$conductor_id){
         try{
             $updatedValue = 0;
-            if(($max+1)>$countRoutes){
+            if(($current+1)>$countRoutes){
                 $updatedValue = 1;
             }
             else{
                 $updatedValue = $countRoutes++;
             }
             $rutaDAO = new RutaDAO;
+            $conductorDAO = new ConductorDAO;
+            $puntoBL = new PuntoBL;
             $rutaDAO->updateNextRoute($updatedValue);
+            $checkConductor -> ruta_id = $current;
+            $conductorDAO -> dbEditConductor($checkConductor);
+            $theNextPunto = $puntoBL->getFirstPuntoControl($conductor_id);
+            $checkConductor -> next_punto_control = $theNextPunto;
+            $conductorDAO -> dbEditConductor($checkConductor);
             return true;
         }
         catch(\Exception $exception){

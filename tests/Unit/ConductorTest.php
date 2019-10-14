@@ -28,7 +28,7 @@ class ConductorTest extends TestCase
             'ci' => 4916388,
             'direccion' => 'Meseta de Achumani, Calle 1 No. 42',
             'celular' => 76744015,
-            'telefono' => 2470014,
+            'telefono' => 2740014,
         ]);
 
         $response
@@ -67,7 +67,7 @@ class ConductorTest extends TestCase
         //Good Test
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer'.$testingConstantsClass->getTokenBearer(),
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
         ])->get('/api/Conductor/1');
 
         $response
@@ -83,7 +83,7 @@ class ConductorTest extends TestCase
                 'celular' => 76744015,
                 'telefono' => 2740014,
                 'avatar' => 'default.jpg',
-                'ruta_id' => 1,
+                'ruta_id' => null,
                 'next_punto_control' => null,
             ]);
     }
@@ -119,17 +119,175 @@ class ConductorTest extends TestCase
             ]);
     }
 
-    public function GoodGetAvatar(){
+    public function testGoodGetAvatar(){
         //Good Test
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
-        ])->get('/api/Conductor/1');
+        ])->get('/api/Conductor/1/profile_pic');
         $response
-            ->assertStatus(401)
+            ->assertStatus(200);
+    }
+    public function testBadGetAvatar(){
+        //Bad Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->get('/api/Conductor/1000/profile_pic');
+        $response
+            ->assertStatus(404)
             ->assertJson([
-                'message' => 'Unauthorized',
-                'code' => 401,
+                'message' => 'Conductor not found',
+                'code' => 404,
+            ]);
+    }
+    public function testGoodGetCurrentRoute(){
+        //Good Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->get('/api/Conductor/1/get_route');
+        $response
+            ->assertStatus(200);
+    }
+    public function testBadGetCurrentRoute(){
+        //Good Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->get('/api/Conductor/1000/get_route');
+        $response
+            ->assertStatus(400)
+            ->assertJson([
+                'message' => 'Invalid number of routes or invalid conductor_id',
+                'code' => 400,
+            ]);
+    }
+
+    public function testGoodGetConductorsVehiculoByid(){
+        //Good Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->get('/api/Conductor/1/Vehiculo/1');
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                "vehiculo_id" => 1,
+                "placa" => "3014-DHH",
+                "modelo" => 2014,
+                "marca" => "Nissan",
+                "color" => "Naranja",
+            ]);
+    }
+    public function testBadGetConductorsVehiculoByid(){
+        //Bad Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->get('/api/Conductor/1000/Vehiculo/1');
+        $response
+            ->assertStatus(404)
+            ->assertJson([
+                'message' => 'Conductor not found',
+                'code' => 404,
+            ]);
+    }
+
+    public function testGoodGetConductorsVehiclesList(){
+        //Good Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->get('/api/Conductor/1/Vehiculo');
+        $response
+            ->assertStatus(200);
+    }
+    public function testBadGetConductorsVehiclesList(){
+        //Bad Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->get('/api/Conductor/1000/Vehiculo');
+        $response
+            ->assertStatus(404)
+            ->assertJson([
+                'message' => 'Conductor not found',
+                'code' => 404,
+            ]);
+    }
+    public function testGoodConductorsGetPuntoControl(){
+        //Good Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->get('/api/Conductor/1/Punto_Control');
+        $response
+            ->assertStatus(200);
+    }
+    public function testBadConductorsGetPuntoControl(){
+        //Bad Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->get('/api/Conductor/1000/Punto_Control');
+        $response
+            ->assertStatus(404)
+            ->assertJson([
+                'message' => 'Conductor invalid',
+                'code' => 404,
+            ]);
+    }
+    public function testGoodUpdate(){
+        //Good Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->json('PUT','/api/Conductor/1',[
+            'nombres' => 'Diego Samuel',
+            'ap_paterno' => 'Balderrama',
+            'ap_materno' => 'Quino',
+            'fecha_nacimiento' => '1997-12-10',
+            'ci' => 4916388,
+            'direccion' => 'Meseta de Achumani, Calle 1 No. 42',
+            'celular' => 76744015,
+            'telefono' => 2740014,
+            'ruta_id' => null,
+            'next_punto_control' => null,
+        ]);
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                "Message" => "Edición exitosa",
+                "Code" => 200,
+            ]);
+    }
+    public function testBadUpdate(){
+        //Bad Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->json('PUT','/api/Conductor/1',[
+            'nombres' => 'Diego Samuel',
+            'ap_paterno' => 'Balderrama',
+            'ap_materno' => 'Quino',
+            'fecha_nacimiento' => '1997-12-10',
+            'ci' => "YIKES",
+            'direccion' => 'Meseta de Achumani, Calle 1 No. 42',
+            'celular' => "DAWG",
+            'telefono' => 2740014,
+            'ruta_id' => null,
+            'next_punto_control' => null,
+        ]);
+        $response
+            ->assertStatus(400)
+            ->assertJson([
+                'ci' => array (
+                    "El campo CI debe ser de tipo numérico"
+                ),
+                'celular' => array (
+                    "El número de celular debe ser numérico"
+                )
             ]);
     }
 }

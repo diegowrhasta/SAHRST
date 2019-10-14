@@ -15,7 +15,7 @@ class CreateRoundRobinrTable extends Migration
     {
         Schema::create('round_robinr', function (Blueprint $table) {
             $table->bigIncrements('round_robin_id');
-            $table->bigInteger('next_ruta_id');
+            $table->bigInteger('next_ruta_id')->nullable();
             $table->timestamps();
         });
     }

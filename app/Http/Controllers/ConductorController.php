@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ConductorController extends Controller
 {
+    // Save Conductor
     public function store(Request $request){
         $msgClass = new msg;
         $rulesClass = new rules;
@@ -28,6 +29,7 @@ class ConductorController extends Controller
         return $resp;
     }
 
+    //Show Conductor by id
     public function show($conductor_id){
         $conductorBL = new ConductorBL;
         $conductor = $conductorBL->prepareShow($conductor_id);
@@ -53,22 +55,14 @@ class ConductorController extends Controller
     public function get_avatar($conductor_id){
         $conductorBL = new ConductorBL;
         $profile_pic = $conductorBL->getProfilePic($conductor_id);
-        if(!$profile_pic){
-            return response()->json([
-                'Message'=>'Imagen no encontrada',
-                'Code'=>404
-            ],400);
-        }
-        else{
-            return $profile_pic->response();
-        }
+        return $profile_pic;
     }
 
-    //Get current Route
+    //Assign Route
     public function retrieveRoute($conductor_id){
         $rutaBL = new RutaBL;
         $nextRoute = $rutaBL->getNextRoute($conductor_id);
-        return response()->json($nextRoute,200);
+        return $nextRoute;
     }
 
     //Get i assigned Vehiculo
@@ -92,6 +86,7 @@ class ConductorController extends Controller
         return $resp;
     }
 
+    //Update Conductor
     public function update(Request $request, $conductor_id){
         $msgClass = new msg;
         $rulesClass = new rules;
@@ -99,7 +94,7 @@ class ConductorController extends Controller
         $rules = $rulesClass->rulesConductor();
         $validator = Validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
-                return response()->json($validator->errors()->toJson(), 400);
+                return response()->json($validator->messages(), 400);
         }
         else{
             $conductorBL = new ConductorBL; 
@@ -142,6 +137,7 @@ class ConductorController extends Controller
         return $resp;
     }
 
+    //Delete Conductor
     public function destroy($conductor_id){
         $conductorBL = new ConductorBL;
         $resp = $conductorBL->deleteConductor($conductor_id);

@@ -91,7 +91,10 @@ class ConductorDAO
             return $img;
         }
         catch(\Exception $exception){
-            return false;
+            return response()->json([
+                'message' => 'image not found',
+                'code' => 404,
+            ],404);
         }
     }
     public function dbGetConductorNextPuntoControl($conductor_id){
@@ -104,7 +107,7 @@ class ConductorDAO
             and d.conductor_id = ?
             and a.punto_id = d.next_punto_control
             and e.tipo_punto_id=a.tipo_punto_id;', [$conductor_id]);
-            return $next_punto_control;
+            return $next_punto_control[0];
         } catch (QueryException $exception){
             return false;
         } catch (\Exception $exception){

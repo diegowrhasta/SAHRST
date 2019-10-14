@@ -3,6 +3,7 @@ namespace App\Http\DAO;
 
 use App\Punto;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 class PuntoDAO
 {
@@ -26,6 +27,25 @@ class PuntoDAO
         try{
             $puntos = Punto::all();
             return $puntos;
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+            ], 400);
+        }
+    }
+    public function dbGetPuntosControlFromConductor($conductor_id){
+        try{
+            $puntosControlFromConductor = (array) DB::select('select a.punto_id from puntos a, puntos_ruta b, rutas c, conductores d, tipo_puntos e
+            where a.tipo_punto_id=2
+            and c.ruta_id = b.ruta_id
+            and a.punto_id = b.punto_id
+            and c.ruta_id = d.ruta_id
+            and d.conductor_id = ?
+            and e.tipo_punto_id=a.tipo_punto_id
+            order by b.posicion', [$conductor_id]);
+            return $puntosControlFromConductor;
         }
         catch(\Exception $exception){
             return response()->json([

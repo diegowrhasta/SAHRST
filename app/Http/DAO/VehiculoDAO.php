@@ -88,13 +88,13 @@ class VehiculoDAO{
     }
     public function dbGetVehiculobyIdFromConductor($conductor_id,$vehiculo_id){
         try{
-            $vehiculo = DB::select('select * from vehiculos a, conductores b, conductor_vehiculo c 
+            $vehiculo = DB::select('select a.vehiculo_id, a.placa, a.modelo, a.marca, a.color from vehiculos a, conductores b, conductor_vehiculo c 
             where a.vehiculo_id = ?
             and b.conductor_id = ?
             and c.vehiculo_id = a.vehiculo_id
             and c.conductor_id = b.conductor_id', [$vehiculo_id,$conductor_id]);
             if($vehiculo){
-                return response()->json($vehiculo,200);
+                return response()->json($vehiculo[0],200);
             }
             else{
                 return response()->json([
@@ -117,7 +117,7 @@ class VehiculoDAO{
     }
     public function dbGetVehiculosFromConductor($conductor_id){
         try{
-            $vehiculos = DB::select('select * from vehiculos a, conductores b, conductor_vehiculo c 
+            $vehiculos = DB::select('select a.vehiculo_id, a.placa, a.modelo, a.marca, a.color from vehiculos a, conductores b, conductor_vehiculo c 
             where b.conductor_id = ?
             and b.conductor_id = c.conductor_id 
             and a.vehiculo_id = c.vehiculo_id', [$conductor_id]);

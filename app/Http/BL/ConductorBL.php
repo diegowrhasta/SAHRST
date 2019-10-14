@@ -99,14 +99,23 @@ class ConductorBL
     public function getProfilePic($conductor_id){
         $conductorDAO = new ConductorDAO;
         $conductor = $conductorDAO->getConductor($conductor_id);
-        $avatar = $conductor->avatar;
-        $profile_pic = $conductorDAO->retrieveProfilePic($avatar);
-        if(!$profile_pic){
-            return false;
+        if($conductor){
+            $avatar = $conductor->avatar;
+            $profile_pic = $conductorDAO->retrieveProfilePic($avatar);
+            if(!$profile_pic){
+                return false;
+            }
+            else{
+                return $profile_pic->response();
+            }
         }
         else{
-            return $profile_pic;
+            return response()->json([
+                'message' => 'Conductor not found',
+                'code' => 404,
+            ], 404);
         }
+        
     }
     public function retrieveNextPuntoControl($conductor_id){
         $conductorDAO = new ConductorDAO;

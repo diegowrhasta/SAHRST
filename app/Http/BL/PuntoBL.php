@@ -17,4 +17,11 @@ class PuntoBL
         $resp = $puntoDAO->dbGetPuntos();
         return $resp;
     }
+    public function getFirstPuntoControl($conductor_id){
+        $puntoDAO = new PuntoDAO;
+        $puntosControlFromConductor = $puntoDAO->dbGetPuntosControlFromConductor($conductor_id);
+        $firstControlPoint = $puntosControlFromConductor[0];
+        $FirstControlPointID = $firstControlPoint -> punto_id;
+        return $FirstControlPointID;
+    }
 }
