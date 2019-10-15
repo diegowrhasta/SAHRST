@@ -20,7 +20,10 @@ class ConductorDAO
     {
         try{
             Conductor::create($data);
-            return response()->json(['status'=>'Conductor registrado correctamente'],200);
+            return response()->json([
+                'status'=>'Conductor registrado correctamente',
+                'code' => 202,
+            ],202);
         } catch (QueryException $exception){
             return response()->json([
                 'Error'=> 'Error interno del servidor',

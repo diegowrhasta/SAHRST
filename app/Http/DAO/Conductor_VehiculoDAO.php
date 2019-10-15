@@ -11,7 +11,7 @@ class Conductor_VehiculoDAO{
             return response()->json([
                 'message' => 'Conductor_Vehiculo registrado exitosamente',
                 'code' => 202,
-            ]);
+            ],202);
         }
         catch (QueryException $exception){
             return response()->json([
@@ -19,9 +19,10 @@ class Conductor_VehiculoDAO{
             ], 500);
         } catch (\Exception $exception){
             return response()->json([
-                'Error'=> $exception->getMessage(),
-                'Code'=>$exception->getCode(),
-            ], 400);
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+                'Line' => $exception->getLine(),
+            ], 500);
         }
     }
 }
