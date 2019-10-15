@@ -39,6 +39,6 @@ class RutaController extends Controller
     public function show($ruta_id){
         $rutaBL = new RutaBL;
         $ruta = $rutaBL->getRoute($ruta_id);
-        return response()->json($ruta);
+        return $ruta;
     }
 }

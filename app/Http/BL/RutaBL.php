@@ -22,7 +22,15 @@ class RutaBL
     public function getRoute($ruta_id){
         $rutaDAO = new RutaDAO;
         $resp = $rutaDAO->dbGetRoute($ruta_id);
-        return $resp;
+        if($resp){
+            return $resp;
+        }
+        else{
+            return response()->json([
+                'message' => 'Ruta not found',
+                'code' => 404,
+            ],404);
+        }
     }
     public function getNextRoute($conductor_id){
         $rutaDAO = new RutaDAO;
