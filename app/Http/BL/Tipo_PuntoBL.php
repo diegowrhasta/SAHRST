@@ -18,12 +18,15 @@ class Tipo_PuntoBL
         }
         else{
             $tipo_puntoDAO = new Tipo_PuntoDAO;
-            $check_conductor = $tipo_puntoDAO->getTipo_Punto($tipo_punto_id);
-            if(!$check_conductor){
-                return false;
+            $check_tipo_punto = $tipo_puntoDAO->getTipo_Punto($tipo_punto_id);
+            if($check_tipo_punto){
+                return response()->json($check_tipo_punto,200);
             }
             else{
-                return $check_conductor;
+                return response()->json([
+                    'message' => 'Tipo_Punto not found',
+                    'code' => 404,
+                ],404);
             }
         }
     }

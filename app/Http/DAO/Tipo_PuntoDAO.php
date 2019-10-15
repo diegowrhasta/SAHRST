@@ -10,7 +10,10 @@ class Tipo_PuntoDAO
     {
         try{
             Tipo_Punto::create($data);
-            return response()->json(['status'=>'Tipo de punto registrado correctamente'],200);
+            return response()->json([
+                'message' => 'Tipo_Punto registrado correctamente',
+                'code' => 201,
+            ],201);
         } catch (QueryException $exception){
             return response()->json([
                 'Error'=> 'Error interno del servidor',
@@ -28,7 +31,10 @@ class Tipo_PuntoDAO
             return $tipo_punto;
         }
         catch(\Exception $e){
-            return false;
+            return response()->json([
+                'message' => 'Tipo_Punto not found',
+                'code' => 404,
+            ],404);
         }
     }
     public function getList(){

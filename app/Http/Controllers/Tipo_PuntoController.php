@@ -29,12 +29,7 @@ class Tipo_PuntoController extends Controller
     public function show($tipo_punto_id){
         $tipo_puntoBL = new Tipo_PuntoBL;
         $tipo_punto = $tipo_puntoBL->prepareShow($tipo_punto_id);
-        if(!$tipo_punto){
-            return response()->json(['Message'=>'No se encontró el tipo de punto','Code'=>404],404);
-        }
-        else{
-            return response()->json([$tipo_punto],200);
-        }
+        return $tipo_punto;
     }
     public function index(){
         $tipo_puntoBL = new Tipo_PuntoBL;
