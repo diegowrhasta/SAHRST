@@ -49,8 +49,17 @@ class ConductorBL
     }
     public function deleteConductor($conductor_id){
         $conductorDAO = new ConductorDAO;
-        $resp = $conductorDAO->dbDeleteConductor($conductor_id);
-        return $resp;
+        $check_conductor = $conductorDAO->getConductor($conductor_id);
+        if($check_conductor){
+            $resp = $conductorDAO->dbDeleteConductor($conductor_id);
+            return $resp;
+        }
+        else{
+            return response()->json([
+                'message' => 'invalid Conductor',
+                'code' => 400,
+            ],400);
+        }
     }
     public function prepareUpdate($conductor_new,$conductor_id){
         $conductorDAO = new ConductorDAO;
@@ -82,7 +91,10 @@ class ConductorBL
         $conductorDAO = new ConductorDAO;
         $conductor = $conductorDAO->getConductor($conductor_id);
         if(!$conductor){
-            return false;
+            return response()->json([
+                'message' => 'conductor not found',
+                'code' => 404,
+            ],404);
         }
         else{
             $conductor->avatar = $filename;
@@ -139,7 +151,7 @@ class ConductorBL
         }
     }
     public function passNextCheckPoint(array $token, $conductor_id){
-        if($token['pass']==true){
+        if($token['pass'] && is_bool($token['pass'])){
             $conductorDAO = new ConductorDAO;
             $resp = $conductorDAO->dbAdvanceCheckpoint($conductor_id);
             return $resp;
@@ -148,7 +160,7 @@ class ConductorBL
             return response()->json([
                 'message' => 'Body not valid',
                 'code' => 400,
-            ]);
+            ],400);
         }
     }
     public function preparereportConductor(array $data, $conductor_id){
@@ -156,7 +168,7 @@ class ConductorBL
             $reporteDAO = new ReporteDAO;
             $resp = $reporteDAO->dbStoreReporte($data);
             $conductorDAO = new ConductorDAO;
-            $conductor = $conductorDAO->getConductor($conductor_id);
+            $conductor = $conductorDAO -> getConductor($conductor_id);
             $conductor -> ruta_id = null;
             $conductor -> next_punto_control = null;
             $finalresponse = $conductorDAO -> dbEditConductor($conductor);
@@ -167,14 +179,14 @@ class ConductorBL
                 return response()->json([
                     'message' => 'Could not save Reporte',
                     'code' => 500,
-                ]);
+                ],500);
             }
         }
         else{
             return response()->json([
                 'message' => 'Body not valid',
                 'code' => 400,
-            ]);
+            ],400);
         }
     }
 }

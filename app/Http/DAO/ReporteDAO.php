@@ -16,11 +16,13 @@ class ReporteDAO{
             return response()->json([
                 'Error'=> $exception->getMessage(),
                 'Code'=>$exception->getCode(),
+                'Error_Line'=>$exception->getLine(),
             ], 400);
         } catch (\Exception $exception){
             return response()->json([
                 'Error'=> $exception->getMessage(),
                 'Code'=>$exception->getCode(),
+                'Error_Line'=>$exception->getLine(),
             ], 500);
         }
     }

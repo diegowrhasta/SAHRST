@@ -290,4 +290,90 @@ class ConductorTest extends TestCase
                 )
             ]);
     }
+    public function testGoodGoodPuntoControl(){
+        //Good Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->json('POST','/api/Conductor/1/isInCheckpoint',[
+            'pass' => true,
+        ]);
+        $response
+            ->assertStatus(202)
+            ->assertJson([
+                'message' => 'Punto de Control avanzado',
+                'code' => 202,
+            ]);
+    }
+    public function testBadGoodPuntoControl(){
+        //Bad Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->json('POST','/api/Conductor/1/isInCheckpoint',[
+            'pass' => 'yeboi',
+        ]);
+        $response
+            ->assertStatus(400)
+            ->assertJson([
+                'message' => 'Body not valid',
+                'code' => 400,
+            ]);
+    }
+    public function testGoodBadPuntoControl(){
+        //Good Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->json('POST','/api/Conductor/1/Reportar',[
+            'conductor_id' => 1,
+        ]);
+        $response
+            ->assertStatus(202)
+            ->assertJson([
+                'message' => 'Reporte Registrado',
+                'code' => 202,
+            ]);
+    }
+    public function testBadBadPuntoControl(){
+        //Bad Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->json('POST','/api/Conductor/1/Reportar',[
+            'conductor_id' => 2,
+        ]);
+        $response
+            ->assertStatus(400)
+            ->assertJson([
+                'message' => 'Body not valid',
+                'code' => 400,
+            ]);
+    }
+    public function testGoodDestroy(){
+        //Good Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->delete('/api/Conductor/2');
+        $response
+            ->assertStatus(202)
+            ->assertJson([
+                'message' => 'Eliminación exitosa',
+                'code' => 202,
+            ]);
+    }
+    public function testBadDestroy(){
+        //Bad Test
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->delete('/api/Conductor/1000');
+        $response
+            ->assertStatus(400)
+            ->assertJson([
+                'message' => 'invalid Conductor',
+                'code' => 400,
+            ]);
+    }
 }

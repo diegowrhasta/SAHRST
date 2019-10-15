@@ -54,10 +54,17 @@ class ConductorDAO
     public function dbDeleteConductor($conductor_id){
         try{
             Conductor::destroy($conductor_id);
-            return true;
+            return response()->json([
+                'message' => 'Eliminación exitosa',
+                'code' => 202,
+            ],202);
         }
         catch(\Exception $exception){
-            return false;
+            return response()->json([
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+                'Error_Line' => $exception->getLine(),
+            ], 500);
         }
     }
     public function dbEditConductor($conductor_old){
@@ -107,19 +114,26 @@ class ConductorDAO
             and d.conductor_id = ?
             and a.punto_id = d.next_punto_control
             and e.tipo_punto_id=a.tipo_punto_id;', [$conductor_id]);
-            return $next_punto_control[0];
+            return $next_punto_control;
         } catch (QueryException $exception){
-            return false;
+            return response()->json([
+                'Error'=> $exception->getMessage(),
+                'Code'=>$exception->getCode(),
+            ], 400);
         } catch (\Exception $exception){
-            return false;
+            return response()->json([
+                'Error'=> $exception->getMessage(),
+                'Code'=>$exception->getCode(),
+            ], 500);
         }   
     }
     public function dbAdvanceCheckpoint($conductor_id){
         try{
             $allGood = false;
+            $finishedControls = false;
             $theNextCheckpoint = 0;
             $getCurrentCheckpoint = (array)$this->dbGetConductorNextPuntoControl($conductor_id);
-            $puntosControlFromConductor = (array) DB::select('select a.punto_id from puntos a, puntos_ruta b, rutas c, conductores d, tipo_puntos e
+            $puntosControlFromConductor = (array) DB::select('select a.punto_id,a.nombre from puntos a, puntos_ruta b, rutas c, conductores d, tipo_puntos e
             where a.tipo_punto_id=2
             and c.ruta_id = b.ruta_id
             and a.punto_id = b.punto_id
@@ -133,41 +147,50 @@ class ConductorDAO
                 if($i==(sizeof($puntosControlFromConductor)-1) && $object_i->punto_id==$dasObject->punto_id){
                     DB::update('update conductores set next_punto_control = null 
                     where conductor_id = ?', [$conductor_id]);
-                    $allGood = true;
+                    $finishedControls = true;
                     break;
                 }
                 else{
                     if($object_i->punto_id==$dasObject->punto_id){
                         DB::update('update conductores set next_punto_control = ? 
-                        where conductor_id = ?', [($object_i->punto_id+1),$conductor_id]);
+                        where conductor_id = ?', [($puntosControlFromConductor[$i+1]->punto_id),$conductor_id]);
                         $allGood = true;
-                        $theNextCheckpoint = $object_i->punto_id+1;
+                        $theNextCheckpoint = $puntosControlFromConductor[$i+1];
                         break;
                     }
                 }
             }
+            if($finishedControls){
+                return response()->json([
+                    'message' => 'Último Punto de Control avanzado',
+                    'code' => 202,
+                ],202);
+            }
             if($allGood){
                 return response()->json([
                     'message' => 'Punto de Control avanzado',
-                    'next_punto' => $theNextCheckpoint,
+                    'next_punto_id' => $theNextCheckpoint -> punto_id,
+                    'nombre_next_punto' => $theNextCheckpoint -> nombre,
                     'code' => 202,
-                ]);
+                ],202);
             }
             else{
                 return response()->json([
-                    'message' => 'Error al subir punto de control',
+                    'message' => 'Error al avanzar punto de control',
                     'code' => 400,
-                ]);
+                ],400);
             }
         } catch (QueryException $exception){
             return response()->json([
                 'Error'=> $exception->getMessage(),
                 'Code'=>$exception->getCode(),
+                'Error_Line'=>$exception->getLine(),
             ], 400);
         } catch (\Exception $exception){
             return response()->json([
                 'Error'=> $exception->getMessage(),
                 'Code'=>$exception->getCode(),
+                'Error_Line'=>$exception->getLine(),
             ], 500);
         }
     }

@@ -141,11 +141,6 @@ class ConductorController extends Controller
     public function destroy($conductor_id){
         $conductorBL = new ConductorBL;
         $resp = $conductorBL->deleteConductor($conductor_id);
-        if(!$resp){
-            return response()->json(['Message'=>"Eliminación fallida",'code'=>500],500);
-        }
-        else{
-            return response()->json(['Message'=>"Eliminación exitosa",'code'=>200],200);
-        }
+        return $resp;
     }
 }
