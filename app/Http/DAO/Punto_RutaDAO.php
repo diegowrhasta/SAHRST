@@ -10,7 +10,10 @@ class Punto_RutaDAO
     {
         try{
             Punto_Ruta::create($data);
-            return response()->json(['status'=>'Punto_Ruta registrado correctamente'],200);
+            return response()->json([
+                'message' =>'Punto_Ruta registrado correctamente',
+                'code' => 201
+            ],201);
         } catch (QueryException $exception){
             return response()->json([
                 'Error'=> 'Error interno del servidor',
