@@ -10,7 +10,15 @@ class ReporteController extends Controller
     public function store(Request $request,$conductor_id){
         $reporteBL = new ReporteBL;
         $data = $request->toArray();
-        $resp = $reporteBL->prepareStore($data);
-        return $resp;
+        if($data['conductor_id']==$conductor_id){
+            $resp = $reporteBL->prepareStore($data);
+            return $resp;
+        }
+        else{
+            return response()->json([
+                'message' => 'Body not valid',
+                'code' => 400,
+            ],400);
+        }
     }
 }

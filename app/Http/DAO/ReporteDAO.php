@@ -10,8 +10,8 @@ class ReporteDAO{
             Reporte::create($data);
             return response()->json([
                 "message" => 'Reporte Registrado',
-                'code' => 202
-            ],202);
+                'code' => 201
+            ],201);
         }  catch (QueryException $exception){
             return response()->json([
                 'Error'=> $exception->getMessage(),
