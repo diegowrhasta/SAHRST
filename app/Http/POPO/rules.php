@@ -29,4 +29,10 @@ class rules{
             'vehiculo_id'=>'required|int',
         ];
     }
+    public function rulesPunto(){
+        return $rules = [
+            'nombre'=>'bail|required|string|max:45',
+            'tipo_punto_id'=>'bail|required|numeric',
+        ];
+    }
 }

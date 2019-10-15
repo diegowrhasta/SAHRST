@@ -5,20 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\BL\PuntoBL;
+use App\Http\POPO\msg;
+use App\Http\POPO\rules;
 
 class PuntoController extends Controller
 {
     public function store(Request $request){
-        $rules = [
-            'nombre'=>'bail|required|string|max:45',
-            'tipo_punto_id'=>'bail|required|numeric',
-        ];
-        $msg = [
-            'nombre.required'=>'El campo nombre es requerido',
-            'nombre.string'=>'El campo nombre debe ser texto',
-            'tipo_punto_id.required'=>'El campo tipo_punto_id debe es requerido',
-            'tipo_punto_id.numeric'=>'El campo tipo_punto_id debe ser numérico',
-        ];
+        $rulesClass = new rules;
+        $msgClass = new msg;
+        $rules = $rulesClass->rulesPunto();
+        $msg = $msgClass->messagesPunto();
         $validator = Validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);

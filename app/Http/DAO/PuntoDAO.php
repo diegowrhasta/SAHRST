@@ -11,7 +11,10 @@ class PuntoDAO
     {
         try{
             Punto::create($data);
-            return response()->json(['status'=>'Punto registrado correctamente'],200);
+            return response()->json([
+                'message' => 'Punto registrado correctamente',
+                'code' => 201,
+            ],201);
         } catch (QueryException $exception){
             return response()->json([
                 'Error'=> 'Error interno del servidor',

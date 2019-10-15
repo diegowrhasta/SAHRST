@@ -45,4 +45,12 @@ class msg{
             'vehiculo_id.int'=>'El campo vehiculo_id debe ser un entero',
         ];
     }
+    public function messagesPunto(){
+        return $msg = [
+            'nombre.required'=>'El campo nombre es requerido',
+            'nombre.string'=>'El campo nombre debe ser texto',
+            'tipo_punto_id.required'=>'El campo tipo_punto_id debe es requerido',
+            'tipo_punto_id.numeric'=>'El campo tipo_punto_id debe ser numérico',
+        ];
+    }
 }
