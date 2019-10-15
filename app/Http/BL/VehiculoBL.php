@@ -14,7 +14,15 @@ class VehiculoBL{
     public function getVehiculo($vehiculo_id){
         $vehiculoDAO = new VehiculoDAO;
         $resp = $vehiculoDAO->dbGetVehiculo($vehiculo_id);
-        return response()->json($resp,200);
+        if($resp){
+            return response()->json($resp,200);
+        }
+        else{
+            return response()->json([
+                'message' => 'Vehiculo not found',
+                'code' => 404,
+            ],404);
+        }
     }
     public function getVehiculos(){
         $vehiculoDAO = new VehiculoDAO;
@@ -79,7 +87,17 @@ class VehiculoBL{
     }
     public function prepareDestroy($vehiculo_id){
         $vehiculoDAO = new VehiculoDAO;
-        $resp = $vehiculoDAO->dbDeleteVehiculo($vehiculo_id);
-        return $resp;
+        $check_vehiculo = $vehiculoDAO->dbGetVehiculo($vehiculo_id);
+        if($check_vehiculo){
+            $resp = $vehiculoDAO->dbDeleteVehiculo($vehiculo_id);
+            return $resp;
+        }
+        else{
+            return response()->json([
+                'message' => 'vehiculo not found',
+                'code' => 404,
+            ],404);
+        }
+        
     }
 }

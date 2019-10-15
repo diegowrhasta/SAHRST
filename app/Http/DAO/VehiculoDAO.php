@@ -22,7 +22,10 @@ class VehiculoDAO{
     public function dbSaveVehiculo($data){
         try{
             Vehiculo::create($data);
-            return response()->json(['message'=>'Vehiculo registrado correctamente','code'=>202],202);
+            return response()->json([
+                'message'=>'Vehiculo registrado correctamente',
+                'code'=>201
+            ],201);
         } catch (QueryException $exception){
             return response()->json([
                 'Error'=> 'Error interno del servidor',
@@ -50,9 +53,9 @@ class VehiculoDAO{
         try{
             $updatedVehicle->save();
             return response()->json([
-                'message' => 'Vehiculo updated',
-                'code' => 202,
-            ],202);
+                'message' => 'vehiculo updated',
+                'code' => 201,
+            ],201);
         }
         catch (QueryException $exception){
             return response()->json([
@@ -70,9 +73,9 @@ class VehiculoDAO{
         try{
             Vehiculo::destroy($vehiculo_id);
             return response()->json([
-                'message' => 'Vehicle deleted',
-                'code' => 200,
-            ],200);
+                'message' => 'vehiculo deleted',
+                'code' => 201,
+            ],201);
         }
         catch (QueryException $exception){
             return response()->json([
