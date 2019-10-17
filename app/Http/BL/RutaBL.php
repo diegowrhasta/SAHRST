@@ -61,11 +61,11 @@ class RutaBL
     function nextRoute($countRoutes,$current,$checkConductor,$conductor_id){
         try{
             $updatedValue = 0;
-            if(($current+1)>$countRoutes){
+            if($current==$countRoutes){
                 $updatedValue = 1;
             }
             else{
-                $updatedValue = $countRoutes++;
+                $updatedValue = $current+1;
             }
             $rutaDAO = new RutaDAO;
             $conductorDAO = new ConductorDAO;
