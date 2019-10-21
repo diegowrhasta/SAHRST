@@ -19,7 +19,7 @@ class LoginTest extends TestCase
         $response = $this->withHeaders([
             'Content-Type' => 'application/json',
         ])->json('POST','/api/auth/login',[
-            'email' => 'diegojefe@gmail.com',
+            'email' => 'yawarjefe@gmail.com',
             "password" => 'jefe'
         ]);
 

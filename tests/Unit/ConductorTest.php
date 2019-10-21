@@ -32,10 +32,10 @@ class ConductorTest extends TestCase
         ]);
 
         $response
-            ->assertStatus(200)
+            ->assertStatus(201)
             ->assertJson([
-                'status' => 'Conductor registrado correctamente',
-                'code' => 202,
+                'message' => 'Conductor registrado correctamente',
+                'code' => 201,
             ]);
     }
     public function testBadStoreConductor(){

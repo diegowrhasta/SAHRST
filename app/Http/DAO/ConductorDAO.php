@@ -21,18 +21,19 @@ class ConductorDAO
         try{
             Conductor::create($data);
             return response()->json([
-                'status'=>'Conductor registrado correctamente',
-                'code' => 202,
-            ],202);
+                'message'=>'Conductor registrado correctamente',
+                'code' => 201,
+            ],201);
         } catch (QueryException $exception){
             return response()->json([
-                'Error'=> 'Error interno del servidor',
+                'message'=> 'Error interno del servidor',
+                'code' => 500,
             ], 500);
         } catch (\Exception $exception){
             return response()->json([
-                'Error'=> $exception->getMessage(),
-                'Code'=>$exception->getCode(),
-            ], 400);
+                'message'=> $exception->getMessage(),
+                'code'=>$exception->getCode(),
+            ], $exception->getCode());
         }
 
     }
