@@ -33,12 +33,7 @@ class ConductorController extends Controller
     public function show($conductor_id){
         $conductorBL = new ConductorBL;
         $conductor = $conductorBL->prepareShow($conductor_id);
-        if(!$conductor){
-            return response()->json(['Message'=>'Conductor no se encontró','Code'=>404],404);
-        }
-        else{
-            return response()->json($conductor,200);
-        }
+        return $conductor;
     }
     public function index(){
         $conductorBL = new ConductorBL;
@@ -101,10 +96,16 @@ class ConductorController extends Controller
             $conductor_new = $request->json()->all();
             $response = $conductorBL->prepareUpdate($conductor_new,$conductor_id);
             if(!$response){
-                return response()->json(['Message'=>'Edición fallida','Code'=>500],500);        
+                return response()->json([
+                    'message'=>'Edición fallida',
+                    'code'=>500,
+                ],500);        
             }
             else{
-                return response()->json(['Message'=>'Edición exitosa','Code'=>200],200);        
+                return response()->json([
+                    'message'=>'Edición exitosa',
+                    'code'=>201,
+                ],201);        
             }
         }
     }

@@ -42,8 +42,11 @@ class ConductorDAO
             $conductor = Conductor::find($conductor_id);
             return $conductor;
         }
-        catch(\Exception $e){
-            return false;
+        catch(\Exception $exception){
+            return response()->json([
+                'message'=> $exception->getMessage(),
+                'code'=>$exception->getCode(),
+            ], $exception->getCode());
         }
     }
     public function getList(){

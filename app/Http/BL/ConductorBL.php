@@ -8,7 +8,6 @@
 
 namespace App\Http\BL;
 
-
 use App\Http\DAO\ConductorDAO;
 use App\Http\DAO\ReporteDAO;
 use Image;
@@ -22,18 +21,16 @@ class ConductorBL
         return $resp;
     }
     public function prepareShow($conductor_id){
-        if($conductor_id==null){
-            return false;
+        $conductorDAO = new ConductorDAO;
+        $conductor = $conductorDAO->getConductor($conductor_id);
+        if($conductor){
+            return $conductor;
         }
         else{
-            $conductorDAO = new ConductorDAO;
-            $check_conductor = $conductorDAO->getConductor($conductor_id);
-            if(!$check_conductor){
-                return false;
-            }
-            else{
-                return $check_conductor;
-            }
+            return response()->json([
+                'message' => 'Conductor no encontrado',
+                'code' => 404,
+            ],404);
         }
     }
     public function getConductores(){
