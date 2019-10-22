@@ -30,7 +30,10 @@ class PuntoController extends Controller
         $puntoBL = new PuntoBL;
         $puntos = $puntoBL->getPuntos();
         if(!$puntos){
-            return response()->json(['Message'=>'No hay puntos registrados','Code'=>404],404);
+            return response()->json([
+                'message'=>'No hay puntos registrados',
+                'code'=>404
+            ],404);
         }
         else{
             return response()->json(
