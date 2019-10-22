@@ -34,7 +34,7 @@ class VehiculoBL{
             ], 404);
         }
         else{
-            return response()->json([$vehiculos],200);
+            return response()->json($vehiculos,200);
         }
     }
     public function getConductorVehiculobyId($conductor_id,$vehiculo_id){
