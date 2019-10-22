@@ -30,7 +30,10 @@ class RutaController extends Controller
         $rutaBL = new RutaBL;
         $routes = $rutaBL->getRoutes();
         if(!$routes){
-            return response()->json(['Message'=>'No hay conductores registrados','Code'=>404],404);
+            return response()->json([
+                'message'=>'No hay rutas registradas',
+                'code'=>404
+            ],404);
         }
         else{
             return response()->json($routes,200);
