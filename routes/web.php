@@ -19,6 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/docs', function () {
+    return view('SAHRST');
+});
+
 //Route::resource ('Conductor','ConductorController');
 
 //Route::resource('Ruta','RutaController');
