@@ -63,14 +63,14 @@ class ConductorDAO
             Conductor::destroy($conductor_id);
             return response()->json([
                 'message' => 'Eliminación exitosa',
-                'code' => 202,
-            ],202);
+                'code' => 200,
+            ],200);
         }
         catch(\Exception $exception){
             return response()->json([
-                'Error' => $exception->getMessage(),
-                'Code' => $exception->getCode(),
-                'Error_Line' => $exception->getLine(),
+                'message' => $exception->getMessage(),
+                'code' => $exception->getCode(),
+                'error_line' => $exception->getLine(),
             ], 500);
         }
     }
@@ -88,15 +88,17 @@ class ConductorDAO
             $path = public_path('/uploads/avatars/' . $filename);
             Image::make($avatar->getRealPath())->resize(300, 300)->save($path);
             return response()->json([
-                'Message'=> 'Subida Exitosa',
-                'Code'=>202,
-            ], 202);
+                'message'=> 'Subida Exitosa',
+                'code'=>201,
+            ], 201);
         }
         catch(\Exception $exception){
             return response()->json([
-                'Message'=> $exception->getMessage(),
-                'Code'=>$exception->getCode(),
-            ], 400);
+                'message'=> $exception->getMessage(),
+                'line'=> $exception->getLine(),
+                'file'=> $exception->getFile(),
+                'code'=>$exception->getCode(),
+            ], 500);
         }
     }
     public function retrieveProfilePic($avatar){

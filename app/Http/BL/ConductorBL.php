@@ -73,16 +73,24 @@ class ConductorBL
             $conductor_old -> ruta_id = $conductor_new['ruta_id'];
             $conductor_old -> next_punto_control = $conductor_new['next_punto_control'];
             if(!$conductorDAO->dbEditConductor($conductor_old)){
-                return false;
+                return response()->json([
+                    'message'=>'Edición fallida',
+                    'code'=>500,
+                ],500);
             }
             else{
-                return true;
+                return response()->json([
+                    'message'=>'Edición exitosa',
+                    'code'=>201,
+                ],201);
             }
         }
         else{
-            return false;
+            return response()->json([
+                'message'=>'Conductor inválido',
+                'code'=>404,
+            ],404);
         }
-
     }
     public function prepareProfilePic($avatar, $filename, $conductor_id){
         $conductorDAO = new ConductorDAO;
