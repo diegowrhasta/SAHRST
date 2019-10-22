@@ -183,17 +183,25 @@ class ConductorBL
             $resp = $reporteDAO->dbStoreReporte($data);
             $conductorDAO = new ConductorDAO;
             $conductor = $conductorDAO -> getConductor($conductor_id);
-            $conductor -> ruta_id = null;
-            $conductor -> next_punto_control = null;
-            $finalresponse = $conductorDAO -> dbEditConductor($conductor);
-            if($finalresponse){
-                return $resp;
+            if($conductor){
+                $conductor -> ruta_id = null;
+                $conductor -> next_punto_control = null;
+                $finalresponse = $conductorDAO -> dbEditConductor($conductor);
+                if($finalresponse){
+                    return $resp;
+                }
+                else{
+                    return response()->json([
+                        'message' => 'Could not save Reporte',
+                        'code' => 500,
+                    ],500);
+                }
             }
             else{
                 return response()->json([
-                    'message' => 'Could not save Reporte',
-                    'code' => 500,
-                ],500);
+                    'message' => 'conductor not found',
+                    'code' => 404,
+                ],404);
             }
         }
         else{
