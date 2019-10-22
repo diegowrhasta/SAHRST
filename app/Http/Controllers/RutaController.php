@@ -23,7 +23,7 @@ class RutaController extends Controller
             $data = $request->toArray();
             $rutaBL = new RutaBL;
             $resp = $rutaBL->saveRuta($data);
-            return $resp;
+            return $resp;   
         }
     }
     public function index(){

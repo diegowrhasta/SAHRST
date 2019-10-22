@@ -25,8 +25,11 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::resource ('Conductor','ConductorController');
-    Route::resource('Ruta','RutaController');
     Route::resource('Tipo_Punto', 'Tipo_PuntoController');
+    Route::resource('Ruta','RutaController');
+    Route::post('Ruta', 'Punto_RutaController@store');
+    Route::get('Ruta', 'Punto_RutaController@index');
+    Route::get('Ruta/{ruta_id}', 'RutaController@show');
     Route::post('Punto_Ruta', 'Punto_RutaController@store');
     Route::get('Punto_Ruta', 'Punto_RutaController@index');
     Route::post('Punto', 'PuntoController@store');
