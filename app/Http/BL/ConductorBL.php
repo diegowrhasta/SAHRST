@@ -158,8 +158,17 @@ class ConductorBL
     public function passNextCheckPoint(array $token, $conductor_id){
         if($token['pass'] && is_bool($token['pass'])){
             $conductorDAO = new ConductorDAO;
-            $resp = $conductorDAO->dbAdvanceCheckpoint($conductor_id);
-            return $resp;
+            $check_conductor = $conductorDAO->getConductor($conductor_id);
+            if(!$check_conductor){
+                return response()->json([
+                    'message' => "conductor not found",
+                    'code' => 404
+                ],404);
+            }
+            else{
+                $resp = $conductorDAO->dbAdvanceCheckpoint($conductor_id);
+                return $resp;
+            }
         }
         else{
             return response()->json([
