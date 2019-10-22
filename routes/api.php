@@ -28,7 +28,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::resource('Ruta','RutaController');
     Route::resource('Tipo_Punto', 'Tipo_PuntoController');
     Route::resource('Punto_Ruta', 'Punto_RutaController');
-    Route::resource('Punto', 'PuntoController');
+    Route::post('Punto', 'PuntoController@store');
+    Route::get('Punto', 'PuntoController@index');
     Route::post('Conductor/{Conductor}/profile_pic', 'ConductorController@update_avatar');
     Route::get('Conductor/{Conductor}/profile_pic', 'ConductorController@get_avatar');
     Route::get('Conductor/{Conductor}/get_route', 'ConductorController@retrieveRoute');

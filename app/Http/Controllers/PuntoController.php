@@ -33,7 +33,9 @@ class PuntoController extends Controller
             return response()->json(['Message'=>'No hay puntos registrados','Code'=>404],404);
         }
         else{
-            return response()->json(['data'=>$puntos],200);
+            return response()->json(
+                $puntos
+            ,200);
         }
     }
 }
