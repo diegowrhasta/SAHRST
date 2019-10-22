@@ -37,10 +37,13 @@ class Punto_RutaController extends Controller
         $Punto_RutaBL = new Punto_RutaBL;
         $puntos_ruta = $Punto_RutaBL->getPuntos_Ruta();
         if(!$puntos_ruta){
-            return response()->json(['Message'=>'No hay relaciones entre puntos y rutas','Code'=>404],404);
+            return response()->json([
+                'message'=>'No hay relaciones entre puntos y rutas',
+                'code'=>404
+            ],404);
         }
         else{
-            return response()->json(['data'=>$puntos_ruta],200);
+            return response()->json($puntos_ruta,200);
         }
     }
 }
