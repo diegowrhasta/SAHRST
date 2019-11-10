@@ -60,7 +60,7 @@ blocks:
         - name: phpmd
           commands:
             # Run the PHP Mess Detector from our project dependency binary
-            - php vendor/bin/phpmd app/ text phpmd_ruleset.xml
+            - php vendor/bin/phpmd app/ text phpmd_rules.xml
         - name: phpcs
           commands:
             # Run the PHP Code Sniffer from our project dependency binary
