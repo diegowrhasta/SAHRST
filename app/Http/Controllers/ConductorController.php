@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\BL\ConductorBL;
-use App\Http\BL\ReporteBL;
 use App\Http\BL\RutaBL;
 use App\Http\BL\VehiculoBL;
 use App\Http\POPO\msg;

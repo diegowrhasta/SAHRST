@@ -79,7 +79,7 @@ class RutaControllerTest extends TestCase
             ->assertStatus(200)
             ->assertJson([
                 'ruta_id' => 1,
-                'nombre' => 'Chasquipampa - San Pedro',
+                'nombre' => 'Amor de Dios - Pampahasi',
             ]);
     }
     public function testBadRutaShow(){

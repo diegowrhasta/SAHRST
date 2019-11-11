@@ -94,10 +94,10 @@ class VehiculoControllerTest extends TestCase
             ->assertStatus(200)
             ->assertJson([
                 "vehiculo_id" =>  1,
-                "placa" =>  "3014-DHH",
-                "modelo" =>  2014,
-                "marca" =>  "Nissan",
-                "color" =>  "Naranja"
+                "placa" =>  "525-THK",
+                "modelo" =>  2007,
+                "marca" =>  "Isuzu",
+                "color" =>  "Guindo"
             ]);
     }
     public function testBadVehiculoShow(){

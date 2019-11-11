@@ -21,9 +21,9 @@ class Punto_RutaControllerTest extends TestCase
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
         ])->json('POST','/api/Punto_Ruta',[
-            'punto_id' => 11,
-            'ruta_id' => 3,
-            'posicion' => 3,
+            'punto_id' => 3,
+            'ruta_id' => 1,
+            'posicion' => 1,
         ]);
 
         $response
