@@ -60,8 +60,10 @@ class RutaController extends Controller
         $resp = $rutaBL->prepareUpdateRoute($new_route,$ruta_id);
         return $resp;   
     }
-    public function destroy(){
-
+    public function destroy($ruta_id){
+        $rutaBL = new RutaBL;
+        $resp = $rutaBL->prepareDestroy($ruta_id);
+        return $resp;
     }
     public function getPuntos(){
 

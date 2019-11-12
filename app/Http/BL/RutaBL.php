@@ -65,7 +65,7 @@ class RutaBL
             'code'=>400,
         ], 400);
     }
-    function nextRoute($countRoutes,$current,$checkConductor,$conductor_id){
+    public function nextRoute($countRoutes,$current,$checkConductor,$conductor_id){
         try{
             $updatedValue = 0;
             if($current==$countRoutes){
@@ -86,5 +86,17 @@ class RutaBL
         catch(\Exception $exception){
             return false;
         }
+    }
+    public function prepareDestroy($ruta_id){
+        $rutaDAO = new RutaDAO;
+        $checkRoute = $rutaDAO->dbGetRoute($ruta_id);
+        if($checkRoute){
+            $resp = $rutaDAO -> dbRutaDestroy($ruta_id);
+            return $resp;
+        }
+        return response()->json([
+            'message'=> 'Invalid Route',
+            'code'=>400,
+        ], 400);
     }
 }

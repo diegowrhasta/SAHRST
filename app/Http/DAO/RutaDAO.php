@@ -89,4 +89,19 @@ class RutaDAO
             ], 400);
         }
     }
+    public function dbRutaDestroy($ruta_id){
+        try{
+            Ruta::destroy($ruta_id);
+            return response()->json([
+                'message' => 'Ruta Deleted',
+                'code' => 201,
+            ], 201);
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+            ], 400);
+        }
+    }
 }
