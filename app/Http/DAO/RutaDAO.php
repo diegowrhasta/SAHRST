@@ -104,4 +104,19 @@ class RutaDAO
             ], 400);
         }
     }
+    public function dbGetRoutePoints($ruta_id){
+        try{
+            $points = (array)DB::select('select a.punto_ruta_id, a.ruta_id,a.punto_id from puntos_ruta a, rutas b 
+            where a.ruta_id=? 
+            and b.ruta_id=? 
+            and a.deleted_at IS NULL;', [$ruta_id,$ruta_id]);
+            return $points;
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+            ], 400);
+        }
+    }
 }

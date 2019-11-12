@@ -99,4 +99,16 @@ class RutaBL
             'code'=>400,
         ], 400);
     }
+    public function prepareRoutePoints($ruta_id){
+        $rutaDAO = new RutaDAO;
+        $checkRoute = $rutaDAO->dbGetRoute($ruta_id);
+        if($checkRoute){
+            $routePoints = $rutaDAO->dbGetRoutePoints($ruta_id);
+            return response()->json($routePoints, 200);
+        }
+        return response()->json([
+            'message'=> 'Invalid Route',
+            'code'=>400,
+        ], 400);
+    }
 }

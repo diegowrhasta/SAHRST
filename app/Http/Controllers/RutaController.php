@@ -65,7 +65,9 @@ class RutaController extends Controller
         $resp = $rutaBL->prepareDestroy($ruta_id);
         return $resp;
     }
-    public function getPuntos(){
-
+    public function getPuntos($ruta_id){
+        $ruta_BL = new RutaBL;
+        $resp = $ruta_BL->prepareRoutePoints($ruta_id);
+        return $resp;
     }
 }
