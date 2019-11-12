@@ -41,4 +41,7 @@ class PuntoController extends Controller
             ,200);
         }
     }
+    public function show(){
+        
+    }
 }
