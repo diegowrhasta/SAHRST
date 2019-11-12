@@ -19,7 +19,8 @@ class ConductorController extends Controller
         $rulesClass = new rules;
         $msg = $msgClass->messagesConductor();
         $rules = $rulesClass->rulesConductor();
-        $validator = Validator::make($request->json()->all(),$rules,$msg);
+        $validator = new Validator;
+        $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }
@@ -44,9 +45,7 @@ class ConductorController extends Controller
                 'code'=>404,
             ],404);
         }
-        else{
-            return response()->json($conductores,200);
-        }
+        return response()->json($conductores,200);
     }
 
     //Get Avatar
@@ -90,16 +89,15 @@ class ConductorController extends Controller
         $rulesClass = new rules;
         $msg = $msgClass->messagesConductor();
         $rules = $rulesClass->rulesConductor();
-        $validator = Validator::make($request->json()->all(),$rules,$msg);
+        $validator = new Validator;
+        $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
                 return response()->json($validator->messages(), 400);
         }
-        else{
-            $conductorBL = new ConductorBL; 
-            $conductor_new = $request->json()->all();
-            $response = $conductorBL->prepareUpdate($conductor_new,$conductor_id);
-            return $response;
-        }
+        $conductorBL = new ConductorBL; 
+        $conductor_new = $request->json()->all();
+        $response = $conductorBL->prepareUpdate($conductor_new,$conductor_id);
+        return $response;
     }
 
     //Update Avatar

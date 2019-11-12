@@ -25,12 +25,10 @@ class RutaBL
         if($resp){
             return $resp;
         }
-        else{
-            return response()->json([
-                'message' => 'Ruta not found',
-                'code' => 404,
-            ],404);
-        }
+        return response()->json([
+            'message' => 'Ruta not found',
+            'code' => 404,
+        ],404);
     }
     public function getNextRoute($conductor_id){
         $rutaDAO = new RutaDAO;
@@ -44,19 +42,15 @@ class RutaBL
             if($resp){
                 return $nextRoute;
             }
-            else{
-                return response()->json([
-                    'message'=> 'Could not update next route',
-                    'code'=>500,
-                ], 500);
-            }
-        }
-        else{
             return response()->json([
-                'message'=> 'Invalid number of routes or invalid conductor_id',
-                'code'=>400,
-            ], 400);
+                'message'=> 'Could not update next route',
+                'code'=>500,
+            ], 500);
         }
+        return response()->json([
+            'message'=> 'Invalid number of routes or invalid conductor_id',
+            'code'=>400,
+        ], 400);
     }
     function nextRoute($countRoutes,$current,$checkConductor,$conductor_id){
         try{
@@ -64,9 +58,7 @@ class RutaBL
             if($current==$countRoutes){
                 $updatedValue = 1;
             }
-            else{
-                $updatedValue = $current+1;
-            }
+            $updatedValue = $current+1;
             $rutaDAO = new RutaDAO;
             $conductorDAO = new ConductorDAO;
             $puntoBL = new PuntoBL;
