@@ -17,4 +17,9 @@ class Punto_RutaBL
         $resp = $punto_rutaDAO->dbGetPuntos_Ruta();
         return $resp;
     }
+    public function prepareDestroy($punto_ruta_id){
+        $punto_rutaDAO = new Punto_RutaDAO;
+        $resp = $punto_rutaDAO->dbDestroyPuntoRuta($punto_ruta_id);
+        return $resp;
+    }
 }

@@ -46,10 +46,9 @@ class Punto_RutaController extends Controller
             return response()->json($puntos_ruta,200);
         }
     }
-    public function destroy(){
-
-    }
-    public function update(){
-        
+    public function destroy($punto_ruta_id){
+        $punto_RutaBL = new Punto_RutaBL;
+        $resp = $punto_RutaBL->prepareDestroy($punto_ruta_id);
+        return $resp;
     }
 }

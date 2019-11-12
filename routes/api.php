@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('Ruta/{ruta_id}', 'RutaController@show');
     Route::post('Punto_Ruta', 'Punto_RutaController@store');
     Route::get('Punto_Ruta', 'Punto_RutaController@index');
+    Route::delete('Punto_Ruta/{punto_ruta_id}', 'Punto_RutaController@destroy');
     Route::post('Punto', 'PuntoController@store');
     Route::get('Punto', 'PuntoController@index');
     Route::post('Conductor/{Conductor}/profile_pic', 'ConductorController@update_avatar');

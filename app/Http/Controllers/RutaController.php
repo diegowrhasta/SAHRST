@@ -44,4 +44,13 @@ class RutaController extends Controller
         $ruta = $rutaBL->getRoute($ruta_id);
         return $ruta;
     }
+    public function update(){
+
+    }
+    public function destroy(){
+
+    }
+    public function getPuntos(){
+        
+    }
 }

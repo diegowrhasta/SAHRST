@@ -37,4 +37,19 @@ class Punto_RutaDAO
             ], 400);
         }
     }
+    public function dbDestroyPuntoRuta($puntos_ruta_id){
+        try{
+            Punto_Ruta::destroy($puntos_ruta_id);
+            return response()->json([
+                'message' =>'Relación eliminada',
+                'code' => 201
+            ],201);
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+            ], 400); 
+        }
+    }
 }
