@@ -52,6 +52,19 @@ class RutaBL
             'code'=>400,
         ], 400);
     }
+    public function prepareUpdateRoute($new_route,$ruta_id){
+        $rutaDAO = new RutaDAO;
+        $old_route = $rutaDAO->dbGetRoute($ruta_id);
+        if($old_route){
+            $old_route -> nombre = $new_route['nombre'];
+            $resp = $rutaDAO -> dbUpdateRoute($old_route);
+            return $resp;
+        }
+        return response()->json([
+            'message'=> 'Invalid Route',
+            'code'=>400,
+        ], 400);
+    }
     function nextRoute($countRoutes,$current,$checkConductor,$conductor_id){
         try{
             $updatedValue = 0;

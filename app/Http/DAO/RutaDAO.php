@@ -63,6 +63,21 @@ class RutaDAO
             ], 400);
         }
     }
+    public function dbUpdateRoute($ruta){
+        try{
+            $ruta->save();
+            return response()->json([
+                'message' => 'Ruta Updated',
+                'code' => 201,
+            ], 201);
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+            ], 400);
+        }
+    }
     public function updateNextRoute($updatedValue){
         try{
             DB::update('update round_robinr set next_ruta_id = ? where round_robin_id = 1', [$updatedValue]);

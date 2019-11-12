@@ -44,13 +44,26 @@ class RutaController extends Controller
         $ruta = $rutaBL->getRoute($ruta_id);
         return $ruta;
     }
-    public function update(){
-
+    public function update(Request $request, $ruta_id){
+        $rules = [
+            'nombre'=>'bail|required|max:45',
+        ];
+        $msg = [
+            'nombre.required'=>'El campo nombre es requerido',
+        ];
+        $validator = Validator::make($request->json()->all(),$rules,$msg);
+        if($validator->fails()){
+            return response()->json($validator->messages(), 400);
+        }
+        $new_route = $request->json()->all();
+        $rutaBL = new RutaBL;
+        $resp = $rutaBL->prepareUpdateRoute($new_route,$ruta_id);
+        return $resp;   
     }
     public function destroy(){
 
     }
     public function getPuntos(){
-        
+
     }
 }

@@ -30,6 +30,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('Ruta', 'RutaController@store');
     Route::get('Ruta', 'RutaController@index');
     Route::get('Ruta/{ruta_id}', 'RutaController@show');
+    Route::put('Ruta/{ruta_id}','RutaController@update');
+    Route::delete('Ruta/{ruta_id}','RutaController@destroy');
+    Route::get('Ruta/{ruta_id}/getPuntos','RutaController@getPuntos');
     Route::post('Punto_Ruta', 'Punto_RutaController@store');
     Route::get('Punto_Ruta', 'Punto_RutaController@index');
     Route::delete('Punto_Ruta/{punto_ruta_id}', 'Punto_RutaController@destroy');
