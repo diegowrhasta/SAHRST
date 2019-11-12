@@ -14,11 +14,9 @@ class Conductor_VehiculoBL{
             $resp = $conductor_vehiculoDAO->dbSaveConductor_Vehiculo($data);
             return $resp;
         }
-        else{
-            return response()->json([
-                'message' => 'Conductor not found',
-                'code' => 404,
-            ],404);
-        }
+        return response()->json([
+            'message' => 'Conductor not found',
+            'code' => 404,
+        ],404);
     }
 }

@@ -26,12 +26,10 @@ class ConductorBL
         if($conductor){
             return $conductor;
         }
-        else{
-            return response()->json([
-                'message' => 'Conductor no encontrado',
-                'code' => 404,
-            ],404);
-        }
+        return response()->json([
+            'message' => 'Conductor no encontrado',
+            'code' => 404,
+        ],404);
     }
     public function getConductores(){
         $conductorDAO = new ConductorDAO;
@@ -40,9 +38,7 @@ class ConductorBL
         if($count<1){
             return false;
         }
-        else{
-            return $conductores;
-        }
+        return $conductores;
     }
     public function deleteConductor($conductor_id){
         $conductorDAO = new ConductorDAO;
@@ -51,12 +47,10 @@ class ConductorBL
             $resp = $conductorDAO->dbDeleteConductor($conductor_id);
             return $resp;
         }
-        else{
-            return response()->json([
-                'message' => 'invalid Conductor',
-                'code' => 400,
-            ],400);
-        }
+        return response()->json([
+            'message' => 'invalid Conductor',
+            'code' => 400,
+        ],400);
     }
     public function prepareUpdate($conductor_new,$conductor_id){
         $conductorDAO = new ConductorDAO;
@@ -78,19 +72,15 @@ class ConductorBL
                     'code'=>500,
                 ],500);
             }
-            else{
-                return response()->json([
-                    'message'=>'Edición exitosa',
-                    'code'=>201,
-                ],201);
-            }
-        }
-        else{
             return response()->json([
-                'message'=>'Conductor inválido',
-                'code'=>404,
-            ],404);
+                'message'=>'Edición exitosa',
+                'code'=>201,
+            ],201);
         }
+        return response()->json([
+            'message'=>'Conductor inválido',
+            'code'=>404,
+        ],404);
     }
     public function prepareProfilePic($avatar, $filename, $conductor_id){
         $conductorDAO = new ConductorDAO;
@@ -101,17 +91,13 @@ class ConductorBL
                 'code' => 404,
             ],404);
         }
-        else{
-            $conductor->avatar = $filename;
-            $resp_pic = $conductorDAO->UploadProfilePic($avatar,$filename);
-            $resp_edit = $conductorDAO->dbEditConductor($conductor);
-            if($resp_edit){
-                return $resp_pic;
-            }
-            else{
-                return false;
-            }
+        $conductor->avatar = $filename;
+        $resp_pic = $conductorDAO->UploadProfilePic($avatar,$filename);
+        $resp_edit = $conductorDAO->dbEditConductor($conductor);
+        if($resp_edit){
+            return $resp_pic;
         }
+        return false;
     }
     public function getProfilePic($conductor_id){
         $conductorDAO = new ConductorDAO;
@@ -122,17 +108,12 @@ class ConductorBL
             if(!$profile_pic){
                 return false;
             }
-            else{
-                return $profile_pic->response();
-            }
+            return $profile_pic->response();
         }
-        else{
-            return response()->json([
-                'message' => 'Conductor not found',
-                'code' => 404,
-            ], 404);
-        }
-        
+        return response()->json([
+            'message' => 'Conductor not found',
+            'code' => 404,
+        ], 404);
     }
     public function retrieveNextPuntoControl($conductor_id){
         $conductorDAO = new ConductorDAO;
@@ -142,18 +123,14 @@ class ConductorBL
             if($nextPuntoControl){
                 return response()->json($nextPuntoControl,200);
             }
-            else{
-                return response()->json([
-                    'Error'=> 'Error interno del servidor',
-                ], 500);
-            }
-        }
-        else{
             return response()->json([
-                "message" => 'Conductor invalid',
-                'code' => 404,
-            ],404);
+                'Error'=> 'Error interno del servidor',
+            ], 500);
         }
+        return response()->json([
+            'message' => 'Conductor invalid',
+            'code' => 404,
+        ],404);
     }
     public function passNextCheckPoint(array $token, $conductor_id){
         if($token['pass'] && is_bool($token['pass'])){
@@ -165,17 +142,13 @@ class ConductorBL
                     'code' => 404
                 ],404);
             }
-            else{
-                $resp = $conductorDAO->dbAdvanceCheckpoint($conductor_id);
-                return $resp;
-            }
+            $resp = $conductorDAO->dbAdvanceCheckpoint($conductor_id);
+            return $resp;
         }
-        else{
-            return response()->json([
-                'message' => 'Body not valid',
-                'code' => 400,
-            ],400);
-        }
+        return response()->json([
+            'message' => 'Body not valid',
+            'code' => 400,
+        ],400);
     }
     public function preparereportConductor(array $data, $conductor_id){
         if($data['conductor_id']==$conductor_id){
@@ -190,25 +163,19 @@ class ConductorBL
                 if($finalresponse){
                     return $resp;
                 }
-                else{
-                    return response()->json([
-                        'message' => 'Could not save Reporte',
-                        'code' => 500,
-                    ],500);
-                }
-            }
-            else{
                 return response()->json([
-                    'message' => 'conductor not found',
-                    'code' => 404,
-                ],404);
+                    'message' => 'Could not save Reporte',
+                    'code' => 500,
+                ],500);
             }
-        }
-        else{
             return response()->json([
-                'message' => 'Body not valid',
-                'code' => 400,
-            ],400);
+                'message' => 'conductor not found',
+                'code' => 404,
+            ],404);
         }
+        return response()->json([
+            'message' => 'Body not valid',
+            'code' => 400,
+        ],400);
     }
 }

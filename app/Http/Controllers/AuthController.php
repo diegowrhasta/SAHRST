@@ -17,10 +17,11 @@ class AuthController extends Controller
             'email'    => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed',
         ]);
+        $hash = new Hash;
         $user = new User([
             'name'     => $request->name,
             'email'    => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $hash::make($request->password),
         ]);
         $user->save();
         return response()->json([
@@ -33,8 +34,9 @@ class AuthController extends Controller
             'password'    => 'required|string',
             'remember_me' => 'boolean',
         ]);
+        $auth = new Auth;
         $credentials = request(['email', 'password']);
-        if (!Auth::attempt($credentials)) {
+        if (!$auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Unauthorized',
                 'code' => 401], 401);

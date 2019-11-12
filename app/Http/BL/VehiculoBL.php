@@ -17,12 +17,10 @@ class VehiculoBL{
         if($resp){
             return response()->json($resp,200);
         }
-        else{
-            return response()->json([
-                'message' => 'Vehiculo not found',
-                'code' => 404,
-            ],404);
-        }
+        return response()->json([
+            'message' => 'Vehiculo not found',
+            'code' => 404,
+        ],404);
     }
     public function getVehiculos(){
         $vehiculoDAO = new VehiculoDAO;
@@ -33,9 +31,7 @@ class VehiculoBL{
                 'Code' => 404
             ], 404);
         }
-        else{
-            return response()->json($vehiculos,200);
-        }
+        return response()->json($vehiculos,200);
     }
     public function getConductorVehiculobyId($conductor_id,$vehiculo_id){
         $conductorDAO = new ConductorDAO;
@@ -45,12 +41,10 @@ class VehiculoBL{
             $resp = $vehiculoDAO->dbGetVehiculobyIdFromConductor($conductor_id,$vehiculo_id);
             return $resp;
         }
-        else{
-            return response()->json([
-                'message' => 'Conductor not found',
-                'code' => 404,
-            ],404);
-        }
+        return response()->json([
+            'message' => 'Conductor not found',
+            'code' => 404,
+        ],404);
     }
     public function getConductorVehiculos($conductor_id){
         $conductorDAO = new ConductorDAO;
@@ -60,12 +54,10 @@ class VehiculoBL{
             $resp = $vehiculoDAO->dbGetVehiculosFromConductor($conductor_id);
             return $resp;
         }
-        else{
-            return response()->json([
-                'message' => 'Conductor not found',
-                'code' => 404,
-            ],404);
-        }
+        return response()->json([
+            'message' => 'Conductor not found',
+            'code' => 404,
+        ],404);
     }
     public function prepareUpdate($vehicle_new,$vehiculo_id){
         $vehiculoDAO = new VehiculoDAO;
@@ -78,12 +70,10 @@ class VehiculoBL{
             $resp = $vehiculoDAO->dbUpdateVehiculo($vehicle_old);
             return $resp;
         }
-        else{
-            return response()->json([
-                'message' => 'Vehiculo not found',
-                'code' => 404
-            ],404);
-        }
+        return response()->json([
+            'message' => 'Vehiculo not found',
+            'code' => 404
+        ],404);
     }
     public function prepareDestroy($vehiculo_id){
         $vehiculoDAO = new VehiculoDAO;
@@ -92,12 +82,9 @@ class VehiculoBL{
             $resp = $vehiculoDAO->dbDeleteVehiculo($vehiculo_id);
             return $resp;
         }
-        else{
-            return response()->json([
-                'message' => 'vehiculo not found',
-                'code' => 404,
-            ],404);
-        }
-        
+        return response()->json([
+            'message' => 'vehiculo not found',
+            'code' => 404,
+        ],404);
     }
 }

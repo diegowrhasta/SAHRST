@@ -11,11 +11,9 @@ class Round_RobinrBL{
             $resp = $round_RobinrDAO->dbStartRound();
             return $resp;
         }
-        else{
-            return response()->json([
-                'message' => 'invalid command',
-                'code' => 400,
-            ],400);
-        }
+        return response()->json([
+            'message' => 'invalid command',
+            'code' => 400,
+        ],400);
     }
 }
