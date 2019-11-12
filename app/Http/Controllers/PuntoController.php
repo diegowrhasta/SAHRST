@@ -41,7 +41,9 @@ class PuntoController extends Controller
             ,200);
         }
     }
-    public function show(){
-        
+    public function show($punto_id){
+        $puntoBL = new PuntoBL;
+        $resp = $puntoBL->prepareGetPunto($punto_id);
+        return $resp;
     }
 }
