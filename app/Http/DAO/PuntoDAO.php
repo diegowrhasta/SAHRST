@@ -10,7 +10,8 @@ class PuntoDAO
     public function dbSavePunto(array $data)
     {
         try{
-            Punto::create($data);
+            $punto = new Punto;
+            $punto::create($data);
             return response()->json([
                 'message' => 'Punto registrado correctamente',
                 'code' => 201,
@@ -28,7 +29,8 @@ class PuntoDAO
     }
     public function dbGetPunto($punto_id){
         try{
-            $punto = Punto::find($punto_id);
+            $punto = new Punto;
+            $punto::find($punto_id);
             return $punto;
         }   
         catch(\Exception $exception){
@@ -40,7 +42,8 @@ class PuntoDAO
     }
     public function dbGetPuntos(){
         try{
-            $puntos = Punto::all();
+            $puntos = new Punto;
+            $puntos::all();
             return $puntos;
         }
         catch(\Exception $exception){
@@ -52,7 +55,8 @@ class PuntoDAO
     }
     public function dbGetPuntosControlFromConductor($conductor_id){
         try{
-            $puntosControlFromConductor = (array) DB::select('select a.punto_id from puntos a, puntos_ruta b, rutas c, conductores d, tipo_puntos e
+            $db = new DB;
+            $puntosControlFromConductor = (array) $db::select('select a.punto_id from puntos a, puntos_ruta b, rutas c, conductores d, tipo_puntos e
             where a.tipo_punto_id=2
             and c.ruta_id = b.ruta_id
             and a.punto_id = b.punto_id

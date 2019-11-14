@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\DB;
 class VehiculoDAO{
     public function getList(){
         try{
-            $vehiculos=Vehiculo::all();
+            $vehiculos = new Vehiculo;
+            $vehiculos::all();
             return $vehiculos;
         }
         catch(Exception $exception){
@@ -21,7 +22,8 @@ class VehiculoDAO{
     }
     public function dbSaveVehiculo($data){
         try{
-            Vehiculo::create($data);
+            $vehiculo = new Vehiculo;
+            $vehiculo::create($data);
             return response()->json([
                 'message'=>'Vehiculo registrado correctamente',
                 'code'=>201
@@ -39,7 +41,8 @@ class VehiculoDAO{
     }
     public function dbGetVehiculo($vehiculo_id){
         try{
-            $vehiculo = Vehiculo::find($vehiculo_id);
+            $vehiculo = new Vehiculo;
+            $vehiculo::find($vehiculo_id);
             return $vehiculo;
         }
         catch(\Exception $exception){
@@ -71,7 +74,8 @@ class VehiculoDAO{
     }
     public function dbDeleteVehiculo($vehiculo_id){
         try{
-            Vehiculo::destroy($vehiculo_id);
+            $vehiculo = new Vehiculo;
+            $vehiculo::destroy($vehiculo_id);
             return response()->json([
                 'message' => 'vehiculo deleted',
                 'code' => 201,
@@ -91,7 +95,8 @@ class VehiculoDAO{
     }
     public function dbGetVehiculobyIdFromConductor($conductor_id,$vehiculo_id){
         try{
-            $vehiculo = DB::select('select a.vehiculo_id, a.placa, a.modelo, a.marca, a.color from vehiculos a, conductores b, conductor_vehiculo c 
+            $db = new DB;
+            $vehiculo = $db::select('select a.vehiculo_id, a.placa, a.modelo, a.marca, a.color from vehiculos a, conductores b, conductor_vehiculo c 
             where a.vehiculo_id = ?
             and b.conductor_id = ?
             and c.vehiculo_id = a.vehiculo_id
@@ -99,12 +104,10 @@ class VehiculoDAO{
             if($vehiculo){
                 return response()->json($vehiculo[0],200);
             }
-            else{
-                return response()->json([
-                    'message' => 'Vehicle not found',
-                    'code' => 404,
-                ]);
-            }
+            return response()->json([
+                'message' => 'Vehicle not found',
+                'code' => 404,
+            ]);
         }
         catch (QueryException $exception){
             return response()->json([
@@ -120,19 +123,18 @@ class VehiculoDAO{
     }
     public function dbGetVehiculosFromConductor($conductor_id){
         try{
-            $vehiculos = DB::select('select a.vehiculo_id, a.placa, a.modelo, a.marca, a.color from vehiculos a, conductores b, conductor_vehiculo c 
+            $db = new DB;
+            $vehiculos = $db::select('select a.vehiculo_id, a.placa, a.modelo, a.marca, a.color from vehiculos a, conductores b, conductor_vehiculo c 
             where b.conductor_id = ?
             and b.conductor_id = c.conductor_id 
             and a.vehiculo_id = c.vehiculo_id', [$conductor_id]);
             if($vehiculos){
                 return response()->json($vehiculos,200);
             }
-            else{
-                return response()->json([
-                    'message' => 'No Vehicles',
-                    'code' => 404,
-                ]);
-            }
+            return response()->json([
+                'message' => 'No Vehicles',
+                'code' => 404,
+            ]);
         }
         catch (QueryException $exception){
             return response()->json([

@@ -15,16 +15,15 @@ class RutaController extends Controller
         $msg = [
             'nombre.required'=>'El campo nombre es requerido',
         ];
-        $validator = Validator::make($request->json()->all(),$rules,$msg);
+        $validator = new Validator;
+        $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }
-        else{
-            $data = $request->toArray();
-            $rutaBL = new RutaBL;
-            $resp = $rutaBL->saveRuta($data);
-            return $resp;   
-        }
+        $data = $request->toArray();
+        $rutaBL = new RutaBL;
+        $resp = $rutaBL->saveRuta($data);
+        return $resp;   
     }
     public function index(){
         $rutaBL = new RutaBL;
@@ -35,9 +34,7 @@ class RutaController extends Controller
                 'code'=>404
             ],404);
         }
-        else{
-            return response()->json($routes,200);
-        }
+        return response()->json($routes,200);
     }
     public function show($ruta_id){
         $rutaBL = new RutaBL;
@@ -51,7 +48,8 @@ class RutaController extends Controller
         $msg = [
             'nombre.required'=>'El campo nombre es requerido',
         ];
-        $validator = Validator::make($request->json()->all(),$rules,$msg);
+        $validator = new Validator;
+        $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }

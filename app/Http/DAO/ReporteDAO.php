@@ -7,7 +7,8 @@ use App\Reporte;
 class ReporteDAO{
     public function dbStoreReporte($data){
         try{
-            Reporte::create($data);
+            $reporte = new Reporte;
+            $reporte::create($data);
             return response()->json([
                 "message" => 'Reporte Registrado',
                 'code' => 201

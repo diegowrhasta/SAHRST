@@ -19,7 +19,8 @@ class ConductorDAO
     public function dbSaveConductor(array $data)
     {
         try{
-            Conductor::create($data);
+            $conductor = new Conductor;
+            $conductor::create($data);
             return response()->json([
                 'message'=>'Conductor registrado correctamente',
                 'code' => 201,
@@ -39,7 +40,8 @@ class ConductorDAO
     }
     public function getConductor($conductor_id){
         try{
-            $conductor = Conductor::find($conductor_id);
+            $conductor = new Conductor;
+            $conductor::find($conductor_id);
             return $conductor;
         }
         catch(\Exception $exception){
@@ -51,7 +53,8 @@ class ConductorDAO
     }
     public function getList(){
         try{
-            $conductores = Conductor::all();
+            $conductores = new Conductor;
+            $conductores::all();
             return $conductores;
         }
         catch(\Exception $e){
@@ -60,7 +63,8 @@ class ConductorDAO
     }
     public function dbDeleteConductor($conductor_id){
         try{
-            Conductor::destroy($conductor_id);
+            $conductor = new Conductor;
+            $conductor::destroy($conductor_id);
             return response()->json([
                 'message' => 'Eliminación exitosa',
                 'code' => 200,
@@ -103,7 +107,8 @@ class ConductorDAO
     }
     public function retrieveProfilePic($avatar){
         try{
-            $img = Image::make(file_get_contents(public_path('/uploads/avatars/' . $avatar )));
+            $img = new Image;
+            $img::make(file_get_contents(public_path('/uploads/avatars/' . $avatar )));
             return $img;
         }
         catch(\Exception $exception){
@@ -115,7 +120,8 @@ class ConductorDAO
     }
     public function dbGetConductorNextPuntoControl($conductor_id){
         try{
-            $next_punto_control = DB::select('select a.punto_id,a.nombre from puntos a, puntos_ruta b, rutas c, conductores d, tipo_puntos e
+            $db = new DB;
+            $next_punto_control = $db::select('select a.punto_id,a.nombre from puntos a, puntos_ruta b, rutas c, conductores d, tipo_puntos e
             where a.tipo_punto_id=2
             and c.ruta_id = b.ruta_id
             and a.punto_id = b.punto_id
@@ -138,11 +144,12 @@ class ConductorDAO
     }
     public function dbAdvanceCheckpoint($conductor_id){
         try{
+            $db = new DB;
             $allGood = false;
             $finishedControls = false;
             $theNextCheckpoint = 0;
             $getCurrentCheckpoint = (array)$this->dbGetConductorNextPuntoControl($conductor_id);
-            $puntosControlFromConductor = (array) DB::select('select a.punto_id,a.nombre from puntos a, puntos_ruta b, rutas c, conductores d, tipo_puntos e
+            $puntosControlFromConductor = (array) $db::select('select a.punto_id,a.nombre from puntos a, puntos_ruta b, rutas c, conductores d, tipo_puntos e
             where a.tipo_punto_id=2
             and c.ruta_id = b.ruta_id
             and a.punto_id = b.punto_id
@@ -151,22 +158,21 @@ class ConductorDAO
             and e.tipo_punto_id=a.tipo_punto_id
             order by b.posicion', [$conductor_id]);
             $dasObject = $getCurrentCheckpoint[0];
-            for($i = 0; $i<sizeof($puntosControlFromConductor); $i++){
+            $size = sizeof($puntosControlFromConductor);
+            for($i = 0; $i<$size; $i++){
                 $object_i = $puntosControlFromConductor[$i];
                 if($i==(sizeof($puntosControlFromConductor)-1) && $object_i->punto_id==$dasObject->punto_id){
-                    DB::update('update conductores set next_punto_control = null 
+                    $db::update('update conductores set next_punto_control = null 
                     where conductor_id = ?', [$conductor_id]);
                     $finishedControls = true;
                     break;
                 }
-                else{
-                    if($object_i->punto_id==$dasObject->punto_id){
-                        DB::update('update conductores set next_punto_control = ? 
-                        where conductor_id = ?', [($puntosControlFromConductor[$i+1]->punto_id),$conductor_id]);
-                        $allGood = true;
-                        $theNextCheckpoint = $puntosControlFromConductor[$i+1];
-                        break;
-                    }
+                if($object_i->punto_id==$dasObject->punto_id){
+                    $db::update('update conductores set next_punto_control = ? 
+                    where conductor_id = ?', [($puntosControlFromConductor[$i+1]->punto_id),$conductor_id]);
+                    $allGood = true;
+                    $theNextCheckpoint = $puntosControlFromConductor[$i+1];
+                    break;
                 }
             }
             if($finishedControls){
@@ -183,12 +189,10 @@ class ConductorDAO
                     'code' => 202,
                 ],202);
             }
-            else{
-                return response()->json([
-                    'message' => 'Error al avanzar punto de control',
-                    'code' => 400,
-                ],400);
-            }
+            return response()->json([
+                'message' => 'Error al avanzar punto de control',
+                'code' => 400,
+            ],400);
         } catch (QueryException $exception){
             return response()->json([
                 'Error'=> $exception->getMessage(),

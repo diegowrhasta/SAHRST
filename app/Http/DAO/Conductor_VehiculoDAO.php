@@ -7,7 +7,8 @@ use App\Conductor_Vehiculo;
 class Conductor_VehiculoDAO{
     public function dbSaveConductor_Vehiculo(array $data){
         try{
-            Conductor_Vehiculo::create($data);
+            $conductor_vehiculo = new Conductor_Vehiculo;
+            $conductor_vehiculo::create($data);
             return response()->json([
                 'message' => 'Conductor_Vehiculo registrado exitosamente',
                 'code' => 202,

@@ -15,16 +15,15 @@ class Tipo_PuntoController extends Controller
         $msg = [
             'nombre.required'=>'El campo nombre es requerido',
         ];
-        $validator = Validator::make($request->json()->all(),$rules,$msg);
+        $validator = new Validator;
+        $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }
-        else{
-            $data = $request->toArray();
-            $tipo_puntoBL = new Tipo_PuntoBL;
-            $resp = $tipo_puntoBL->saveTipo_Punto($data);
-            return $resp;
-        }
+        $data = $request->toArray();
+        $tipo_puntoBL = new Tipo_PuntoBL;
+        $resp = $tipo_puntoBL->saveTipo_Punto($data);
+        return $resp;
     }
     public function show($tipo_punto_id){
         $tipo_puntoBL = new Tipo_PuntoBL;
@@ -40,8 +39,6 @@ class Tipo_PuntoController extends Controller
                 'code'=>404
             ],404);
         }
-        else{
-            return response()->json($tipos_punto,200);
-        }
+        return response()->json($tipos_punto,200);
     }
 }

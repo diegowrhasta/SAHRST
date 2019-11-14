@@ -11,7 +11,8 @@ class RutaDAO
     public function dbSaveRuta(array $data)
     {
         try{
-            Ruta::create($data);
+            $ruta = new Ruta;
+            $ruta::create($data);
             return response()->json([
                 'message' => 'Ruta registrada correctamente',
                 'code' => 201,
@@ -29,7 +30,8 @@ class RutaDAO
     }
     public function dbGetRutas(){
         try{
-            $rutas = Ruta::all();
+            $rutas = new Ruta;
+            $rutas::all();
             return $rutas;
         }
         catch(\Exception $exception){
@@ -41,7 +43,8 @@ class RutaDAO
     }
     public function dbGetRoute($ruta_id){
         try{
-            $ruta = Ruta::find($ruta_id);
+            $ruta = new Ruta;
+            $ruta::find($ruta_id);
             return $ruta;
         }
         catch(\Exception $exception){
@@ -53,7 +56,8 @@ class RutaDAO
     }
     public function retrieveNextRoute(){
         try{
-            $ruta = Round_Robinr::get('next_ruta_id');
+            $ruta = new Round_Robinr;
+            $ruta::get('next_ruta_id');
             return $ruta->toArray();
         }
         catch(\Exception $exception){
@@ -80,7 +84,8 @@ class RutaDAO
     }
     public function updateNextRoute($updatedValue){
         try{
-            DB::update('update round_robinr set next_ruta_id = ? where round_robin_id = 1', [$updatedValue]);
+            $db = new DB;
+            $db::update('update round_robinr set next_ruta_id = ? where round_robin_id = 1', [$updatedValue]);
         }
         catch(\Exception $exception){
             return response()->json([
@@ -91,7 +96,8 @@ class RutaDAO
     }
     public function dbRutaDestroy($ruta_id){
         try{
-            Ruta::destroy($ruta_id);
+            $ruta = new Ruta;
+            $ruta::destroy($ruta_id);
             return response()->json([
                 'message' => 'Ruta Deleted',
                 'code' => 201,
@@ -106,7 +112,8 @@ class RutaDAO
     }
     public function dbGetRoutePoints($ruta_id){
         try{
-            $points = (array)DB::select('select a.ruta_id,a.punto_id,c.nombre as nombre_punto, d.nombre as tipo_punto 
+            $db = new DB;
+            $points = (array) $db::select('select a.ruta_id,a.punto_id,c.nombre as nombre_punto, d.nombre as tipo_punto 
             from puntos_ruta a, rutas b, puntos c, tipo_puntos d
             where a.ruta_id=?
             and b.ruta_id=?

@@ -15,16 +15,15 @@ class PuntoController extends Controller
         $msgClass = new msg;
         $rules = $rulesClass->rulesPunto();
         $msg = $msgClass->messagesPunto();
-        $validator = Validator::make($request->json()->all(),$rules,$msg);
+        $validator = new Validator;
+        $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }
-        else{
-            $data = $request->toArray();
-            $puntoBL = new PuntoBL;
-            $resp = $puntoBL->savePunto($data);
-            return $resp;
-        }
+        $data = $request->toArray();
+        $puntoBL = new PuntoBL;
+        $resp = $puntoBL->savePunto($data);
+        return $resp;
     }
     public function index(){
         $puntoBL = new PuntoBL;
@@ -35,11 +34,9 @@ class PuntoController extends Controller
                 'code'=>404
             ],404);
         }
-        else{
-            return response()->json(
-                $puntos
-            ,200);
-        }
+        return response()->json(
+            $puntos
+        ,200);
     }
     public function show($punto_id){
         $puntoBL = new PuntoBL;

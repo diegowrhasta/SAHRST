@@ -9,7 +9,8 @@ class Tipo_PuntoDAO
     public function dbSaveTipo_Punto(array $data)
     {
         try{
-            Tipo_Punto::create($data);
+            $tipo_punto = new Tipo_Punto;
+            $tipo_punto::create($data);
             return response()->json([
                 'message' => 'Tipo_Punto registrado correctamente',
                 'code' => 201,
@@ -27,7 +28,8 @@ class Tipo_PuntoDAO
     }
     public function getTipo_Punto($tipo_punto_id){
         try{
-            $tipo_punto = Tipo_Punto::find($tipo_punto_id);
+            $tipo_punto = new Tipo_Punto;
+            $tipo_punto::find($tipo_punto_id);
             return $tipo_punto;
         }
         catch(\Exception $e){
@@ -39,7 +41,8 @@ class Tipo_PuntoDAO
     }
     public function getList(){
         try{
-            $tipos_punto = Tipo_Punto::all();
+            $tipos_punto = new Tipo_Punto;
+            $tipos_punto::all();
             return $tipos_punto;
         }
         catch(\Exception $e){

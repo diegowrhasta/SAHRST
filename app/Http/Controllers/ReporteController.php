@@ -14,11 +14,9 @@ class ReporteController extends Controller
             $resp = $reporteBL->prepareStore($data);
             return $resp;
         }
-        else{
-            return response()->json([
+        return response()->json([
                 'message' => 'Body not valid',
                 'code' => 400,
-            ],400);
-        }
+        ],400);
     }
 }

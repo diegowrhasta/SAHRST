@@ -9,7 +9,8 @@ class Punto_RutaDAO
     public function dbSavePunto_Ruta(array $data)
     {
         try{
-            Punto_Ruta::create($data);
+            $punto_ruta = new Punto_Ruta;
+            $punto_ruta::create($data);
             return response()->json([
                 'message' =>'Punto_Ruta registrado correctamente',
                 'code' => 201
@@ -27,7 +28,8 @@ class Punto_RutaDAO
     }
     public function dbGetPuntos_Ruta(){
         try{
-            $puntos_ruta = Punto_Ruta::all();
+            $puntos_ruta = new Punto_Ruta;
+            $puntos_ruta::all();
             return $puntos_ruta;
         }
         catch(\Exception $exception){
@@ -39,7 +41,8 @@ class Punto_RutaDAO
     }
     public function dbDestroyPuntoRuta($puntos_ruta_id){
         try{
-            Punto_Ruta::destroy($puntos_ruta_id);
+            $punto_ruta = new Punto_Ruta;
+            $punto_ruta::destroy($puntos_ruta_id);
             return response()->json([
                 'message' =>'Relación eliminada',
                 'code' => 201

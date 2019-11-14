@@ -22,16 +22,15 @@ class Punto_RutaController extends Controller
             'posicion.numeric'=>'El campo posicion debe ser entero',
             'posicion.required'=>'El campo posicion es requerido',
         ];
-        $validator = Validator::make($request->json()->all(),$rules,$msg);
+        $validator = new Validator;
+        $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }
-        else{
-            $data = $request->toArray();
-            $punto_rutaBL = new Punto_RutaBL;
-            $resp = $punto_rutaBL->savePunto_Ruta($data);
-            return $resp;
-        }
+        $data = $request->toArray();
+        $punto_rutaBL = new Punto_RutaBL;
+        $resp = $punto_rutaBL->savePunto_Ruta($data);
+        return $resp;
     }
     public function index(){
         $Punto_RutaBL = new Punto_RutaBL;
@@ -42,9 +41,7 @@ class Punto_RutaController extends Controller
                 'code'=>404
             ],404);
         }
-        else{
-            return response()->json($puntos_ruta,200);
-        }
+        return response()->json($puntos_ruta,200);
     }
     public function destroy($punto_ruta_id){
         $punto_RutaBL = new Punto_RutaBL;
