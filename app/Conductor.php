@@ -14,11 +14,12 @@ class Conductor extends Model
     protected $softDelete = true;
 
     protected $fillable = [
-        'nombres', 'ap_paterno', 'ap_materno', 'fecha_nacimiento', 'ci', 'direccion', 'celular', 'telefono', 'avatar', 'ruta_id', 'next_punto_control'
+        'nombres', 'ap_paterno', 'ap_materno', 'fecha_nacimiento', 'ci', 'direccion', 'celular', 'telefono',
+        'avatar', 'ruta_id', 'next_punto_control'
     ];
     protected $hidden = [
-        'deleted_at', 'created_at', 'updated_at',
-    ];
+        'deleted_at', 'created_at', 'updated_at'
+        ];
     public function ruta(){
         return $this->belongsTo('App\Ruta','ruta_id','ruta_id');
     }
