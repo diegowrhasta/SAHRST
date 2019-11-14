@@ -16,7 +16,7 @@ class Tipo_PuntoController extends Controller
             'nombre.required'=>'El campo nombre es requerido',
         ];
         $validator = new Validator;
-        $validator::make($request->json()->all(),$rules,$msg);
+        $validator = $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }

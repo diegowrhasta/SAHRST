@@ -10,7 +10,7 @@ class VehiculoDAO{
     public function getList(){
         try{
             $vehiculos = new Vehiculo;
-            $vehiculos::all();
+            $vehiculos = $vehiculos::all();
             return $vehiculos;
         }
         catch(Exception $exception){
@@ -42,7 +42,7 @@ class VehiculoDAO{
     public function dbGetVehiculo($vehiculo_id){
         try{
             $vehiculo = new Vehiculo;
-            $vehiculo::find($vehiculo_id);
+            $vehiculo = $vehiculo::find($vehiculo_id);
             return $vehiculo;
         }
         catch(\Exception $exception){

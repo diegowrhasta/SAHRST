@@ -170,15 +170,15 @@ class ConductorTest extends TestCase
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
-        ])->get('/api/Conductor/1/Vehiculo/1');
+        ])->get('/api/Conductor/4/Vehiculo/2');
         $response
             ->assertStatus(200)
             ->assertJson([
-                "vehiculo_id" => 1,
-                "placa" => "3014-DHH",
-                "modelo" => 2014,
-                "marca" => "Nissan",
-                "color" => "Naranja",
+                "vehiculo_id" => 2,
+                "placa" => "525-THK",
+                "modelo" => 2007,
+                "marca" => "Isuzu",
+                "color" => "Guindo"
             ]);
     }
     public function testBadGetConductorsVehiculoByid(){
@@ -244,7 +244,7 @@ class ConductorTest extends TestCase
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
-        ])->json('PUT','/api/Conductor/1',[
+        ])->json('PUT','/api/Conductor/4',[
             'nombres' => 'Diego Samuel',
             'ap_paterno' => 'Balderrama',
             'ap_materno' => 'Quino',
@@ -257,10 +257,10 @@ class ConductorTest extends TestCase
             'next_punto_control' => null,
         ]);
         $response
-            ->assertStatus(200)
+            ->assertStatus(201)
             ->assertJson([
-                "Message" => "Edición exitosa",
-                "Code" => 200,
+                "message" => "Edición exitosa",
+                "code" => 201,
             ]);
     }
     public function testBadUpdate(){
@@ -330,10 +330,10 @@ class ConductorTest extends TestCase
             'conductor_id' => 1,
         ]);
         $response
-            ->assertStatus(202)
+            ->assertStatus(201)
             ->assertJson([
                 'message' => 'Reporte Registrado',
-                'code' => 202,
+                'code' => 201,
             ]);
     }
     public function testBadBadPuntoControl(){
@@ -356,12 +356,12 @@ class ConductorTest extends TestCase
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
-        ])->delete('/api/Conductor/2');
+        ])->delete('/api/Conductor/5');
         $response
-            ->assertStatus(202)
+            ->assertStatus(200)
             ->assertJson([
                 'message' => 'Eliminación exitosa',
-                'code' => 202,
+                'code' => 200,
             ]);
     }
     public function testBadDestroy(){

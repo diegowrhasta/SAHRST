@@ -155,7 +155,7 @@ class VehiculoControllerTest extends TestCase
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
-        ])->delete('/api/Vehiculo/3');
+        ])->delete('/api/Vehiculo/7');
 
         $response
             ->assertStatus(201)

@@ -39,6 +39,19 @@ class Punto_RutaDAO
             ], 400);
         }
     }
+    public function dbGetPunto_Ruta($punto_ruta_id){
+        try{
+            $punto_ruta = new Punto_Ruta;
+            $punto_ruta = $punto_ruta::find($punto_ruta_id);
+            return $punto_ruta;
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+            ], 400);
+        }
+    }
     public function dbDestroyPuntoRuta($puntos_ruta_id){
         try{
             $punto_ruta = new Punto_Ruta;

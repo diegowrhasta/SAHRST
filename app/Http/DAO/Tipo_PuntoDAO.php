@@ -29,7 +29,7 @@ class Tipo_PuntoDAO
     public function getTipo_Punto($tipo_punto_id){
         try{
             $tipo_punto = new Tipo_Punto;
-            $tipo_punto::find($tipo_punto_id);
+            $tipo_punto = $tipo_punto::find($tipo_punto_id);
             return $tipo_punto;
         }
         catch(\Exception $e){
@@ -42,7 +42,7 @@ class Tipo_PuntoDAO
     public function getList(){
         try{
             $tipos_punto = new Tipo_Punto;
-            $tipos_punto::all();
+            $tipos_punto = $tipos_punto::all();
             return $tipos_punto;
         }
         catch(\Exception $e){

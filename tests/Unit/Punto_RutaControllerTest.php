@@ -75,4 +75,29 @@ class Punto_RutaControllerTest extends TestCase
                 'code' => 401,
             ]);
     }
+
+    public function testGoodDestroy(){
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->delete('/api/Punto_Ruta/15');
+        $response
+            ->assertStatus(201)
+            ->assertJson([
+                'message' =>'Relación eliminada',
+                'code' => 201
+            ]);
+    }
+    public function testBadDestroy(){
+        $testingConstantsClass = new TestingConstants;
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
+        ])->delete('/api/Punto_Ruta/1');
+        $response
+            ->assertStatus(400)
+            ->assertJson([
+                'message' =>'Relación inexistente',
+                'code' => 400
+            ]);
+    }
 }

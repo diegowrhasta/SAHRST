@@ -23,7 +23,7 @@ class RutaBL
         $rutaDAO = new RutaDAO;
         $resp = $rutaDAO->dbGetRoute($ruta_id);
         if($resp){
-            return $resp;
+            return $resp; 
         }
         return response()->json([
             'message' => 'Ruta not found',
@@ -57,7 +57,7 @@ class RutaBL
         $old_route = $rutaDAO->dbGetRoute($ruta_id);
         if($old_route){
             $old_route -> nombre = $new_route['nombre'];
-            $resp = $rutaDAO -> dbUpdateRoute($old_route);
+            $resp = $rutaDAO->dbUpdateRoute($old_route);
             return $resp;
         }
         return response()->json([
@@ -104,7 +104,13 @@ class RutaBL
         $checkRoute = $rutaDAO->dbGetRoute($ruta_id);
         if($checkRoute){
             $routePoints = $rutaDAO->dbGetRoutePoints($ruta_id);
-            return response()->json($routePoints, 200);
+            if($routePoints){
+                return response()->json($routePoints, 200);
+            }
+            return response()->json([
+                'message'=> 'Ruta sin puntos',
+                'code'=>400,
+            ], 400);
         }
         return response()->json([
             'message'=> 'Invalid Route',

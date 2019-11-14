@@ -17,7 +17,7 @@ class VehiculoController extends Controller
         $msg = $msgClass->messagesVehiculo();
         $rules = $rulesClass->rulesVehiculo();
         $validator = new Validator;
-        $validator::make($request->json()->all(),$rules,$msg);
+        $validator = $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }
@@ -43,7 +43,7 @@ class VehiculoController extends Controller
         $msg = $msgClass->messagesVehiculo();
         $rules = $rulesClass->rulesVehiculo();
         $validator = new Validator;
-        $validator::make($request->json()->all(),$rules,$msg);
+        $validator = $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }

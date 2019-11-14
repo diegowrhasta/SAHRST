@@ -15,7 +15,13 @@ class PuntoBL
     public function prepareGetPunto($punto_id){
         $puntoDAO = new PuntoDAO;
         $resp = $puntoDAO->dbGetPunto($punto_id);
-        return $resp;
+        if($resp){
+            return $resp;
+        }
+        return response()->json([
+            'message' => 'Punto no encontrado',
+            'code' => 404,
+        ],404);
     }
     public function getPuntos(){
         $puntoDAO = new PuntoDAO;

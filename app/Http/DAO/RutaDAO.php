@@ -44,7 +44,7 @@ class RutaDAO
     public function dbGetRoute($ruta_id){
         try{
             $ruta = new Ruta;
-            $ruta::find($ruta_id);
+            $ruta = $ruta::find($ruta_id);
             return $ruta;
         }
         catch(\Exception $exception){
@@ -67,9 +67,9 @@ class RutaDAO
             ], 400);
         }
     }
-    public function dbUpdateRoute($ruta){
+    public function dbUpdateRoute($old_route){
         try{
-            $ruta->save();
+            $old_route->save();
             return response()->json([
                 'message' => 'Ruta Updated',
                 'code' => 201,

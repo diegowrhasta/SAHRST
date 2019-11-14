@@ -30,7 +30,7 @@ class PuntoDAO
     public function dbGetPunto($punto_id){
         try{
             $punto = new Punto;
-            $punto::find($punto_id);
+            $punto = $punto::find($punto_id);
             return $punto;
         }   
         catch(\Exception $exception){

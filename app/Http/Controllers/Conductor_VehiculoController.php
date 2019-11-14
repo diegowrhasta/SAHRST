@@ -16,7 +16,7 @@ class Conductor_VehiculoController extends Controller
         $msg = $msgClass->messagesConductor_Vehiculo();
         $rules = $rulesClass->rulesConductor_Vehiculo();
         $validator = new Validator;
-        $validator::make($request->json()->all(),$rules,$msg);
+        $validator = $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }
