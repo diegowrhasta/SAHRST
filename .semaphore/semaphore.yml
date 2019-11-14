@@ -34,7 +34,7 @@ blocks:
             # Optionally you may use --use-cache flag to avoid roundtrip to
             # remote repository.
             # See https://docs.semaphoreci.com/article/54-toolbox-reference#libcheckout
-            - git checkout DevSprint4
+            - checkout
             # Try and find a cached version of our /vendor dependencies folder.
             # Semaphore tries to find a partial match.
             # Read about caching: https://docs.semaphoreci.com/article/54-toolbox-reference#cache

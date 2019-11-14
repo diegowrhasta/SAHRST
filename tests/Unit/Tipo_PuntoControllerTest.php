@@ -20,7 +20,7 @@ class Tipo_PuntoControllerTest extends TestCase
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
         ])->json('POST','/api/Tipo_Punto',[
-            'nombre' => "Inicio",
+            'nombre' => "Punto",
         ]);
 
         $response
