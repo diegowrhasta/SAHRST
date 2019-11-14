@@ -54,7 +54,7 @@ class ConductorDAO
     public function getList(){
         try{
             $conductores = new Conductor;
-            $conductores::all();
+            $conductores = $conductores::all();
             return $conductores;
         }
         catch(\Exception $e){
