@@ -74,6 +74,7 @@ blocks:
         commands:
           - checkout
           - cache restore
+          - cp .env.example .env
           - php artisan key:generate
           # Run the unit tests from the phpunit binary in vendor folder
           - ./vendor/bin/phpunit
