@@ -48,7 +48,7 @@ blocks:
             # We are setting up the .env file from our example file which contains Semaphore DB data and proper app URL
             - cp .env.example .env
             # We need to generate an application key for Laravel to work.
-            - sudo chmod 777 -R ./storage
+            - sudo chmod 777 -R ./storage/
             - php artisan key:generate
 
   - name: "Run Code Analysis"
@@ -78,6 +78,7 @@ blocks:
           - cd ./storage
           - ls -lah
           # Run the unit tests from the phpunit binary in vendor folder
+          - cd ..
           - ./vendor/bin/phpunit
 
   - name: "Run Security Tests"
