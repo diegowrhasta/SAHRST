@@ -16,7 +16,7 @@ class PuntoController extends Controller
         $rules = $rulesClass->rulesPunto();
         $msg = $msgClass->messagesPunto();
         $validator = new Validator;
-        $validator::make($request->json()->all(),$rules,$msg);
+        $validator = $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }

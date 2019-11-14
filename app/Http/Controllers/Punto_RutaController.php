@@ -23,7 +23,7 @@ class Punto_RutaController extends Controller
             'posicion.required'=>'El campo posicion es requerido',
         ];
         $validator = new Validator;
-        $validator::make($request->json()->all(),$rules,$msg);
+        $validator = $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }

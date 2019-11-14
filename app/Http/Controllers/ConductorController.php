@@ -19,7 +19,7 @@ class ConductorController extends Controller
         $msg = $msgClass->messagesConductor();
         $rules = $rulesClass->rulesConductor();
         $validator = new Validator;
-        $validator::make($request->json()->all(),$rules,$msg);
+        $validator = $validator::make($request->json()->all(),$rules,$msg);
         if($validator->fails()){
             return response()->json($validator->messages(), 400);
         }

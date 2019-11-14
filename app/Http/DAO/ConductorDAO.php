@@ -41,7 +41,7 @@ class ConductorDAO
     public function getConductor($conductor_id){
         try{
             $conductor = new Conductor;
-            $conductor::find($conductor_id);
+            $conductor = $conductor::find($conductor_id);
             return $conductor;
         }
         catch(\Exception $exception){
@@ -108,7 +108,7 @@ class ConductorDAO
     public function retrieveProfilePic($avatar){
         try{
             $img = new Image;
-            $img::make(file_get_contents(public_path('/uploads/avatars/' . $avatar )));
+            $img = $img::make(file_get_contents(public_path('/uploads/avatars/' . $avatar )));
             return $img;
         }
         catch(\Exception $exception){

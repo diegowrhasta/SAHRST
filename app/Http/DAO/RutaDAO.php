@@ -31,7 +31,7 @@ class RutaDAO
     public function dbGetRutas(){
         try{
             $rutas = new Ruta;
-            $rutas::all();
+            $rutas = $rutas::all();
             return $rutas;
         }
         catch(\Exception $exception){
@@ -57,7 +57,7 @@ class RutaDAO
     public function retrieveNextRoute(){
         try{
             $ruta = new Round_Robinr;
-            $ruta::get('next_ruta_id');
+            $ruta = $ruta::get('next_ruta_id');
             return $ruta->toArray();
         }
         catch(\Exception $exception){
