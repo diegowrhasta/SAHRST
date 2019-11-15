@@ -21,8 +21,8 @@ class Punto_RutaControllerTest extends TestCase
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
         ])->json('POST','/api/Punto_Ruta',[
-            'punto_id' => 3,
-            'ruta_id' => 1,
+            'punto_id' => 4,
+            'ruta_id' => 4,
             'posicion' => 1,
         ]);
 
@@ -80,7 +80,7 @@ class Punto_RutaControllerTest extends TestCase
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
-        ])->delete('/api/Punto_Ruta/15');
+        ])->delete('/api/Punto_Ruta/4');
         $response
             ->assertStatus(201)
             ->assertJson([
@@ -92,7 +92,7 @@ class Punto_RutaControllerTest extends TestCase
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
-        ])->delete('/api/Punto_Ruta/1');
+        ])->delete('/api/Punto_Ruta/1000');
         $response
             ->assertStatus(400)
             ->assertJson([

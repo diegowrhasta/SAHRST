@@ -79,7 +79,6 @@ class RutaControllerTest extends TestCase
             ->assertStatus(200)
             ->assertJson([
                 'ruta_id' => 4,
-                'nombre' => 'Inca-Llojeta - PUC'
             ]);
     }
     public function testBadRutaShow(){
@@ -155,7 +154,7 @@ class RutaControllerTest extends TestCase
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
-        ])->get('/api/Ruta/5/getPuntos');
+        ])->get('/api/Ruta/1/getPuntos');
 
         $response
             ->assertStatus(200);
@@ -169,7 +168,7 @@ class RutaControllerTest extends TestCase
         $response
             ->assertStatus(400)
             ->assertJson([
-                'message' => 'Ruta sin puntos',
+                'message' => 'Invalid Route',
                 'code' => 400
             ]);
     }

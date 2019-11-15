@@ -14,7 +14,7 @@ class ReporteControllerTest extends TestCase
      *
      * @return void
      */
-    public function testGoodStorePunto(){
+    public function testGoodStore(){
         //Good Test
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
@@ -31,7 +31,7 @@ class ReporteControllerTest extends TestCase
                 'code' => 201,
             ]);
     }
-    public function testBadStorePunto(){
+    public function testBadStore(){
         //Bad Test
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([

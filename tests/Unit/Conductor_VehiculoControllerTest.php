@@ -21,8 +21,8 @@ class Conductor_VehiculoControllerTest extends TestCase
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
         ])->json('POST','/api/Conductor_Vehiculo',[
-            'vehiculo_id' => 2,
-            'conductor_id' => 3,
+            'vehiculo_id' => 1,
+            'conductor_id' => 1,
         ]);
 
         $response

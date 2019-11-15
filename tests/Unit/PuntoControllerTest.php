@@ -82,13 +82,12 @@ class PuntoControllerTest extends TestCase
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
-        ])->get('/api/Punto/8');
+        ])->get('/api/Punto/1');
 
         $response
             ->assertStatus(200)
             ->assertJson([
-                'punto_id' => 8,
-                'nombre' => 'Calle I, Zona Inca-Llojeta',
+                'punto_id' => 1,
                 'tipo_punto_id' => 1
             ]);
     }

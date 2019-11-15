@@ -93,11 +93,7 @@ class VehiculoControllerTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                "vehiculo_id" =>  1,
-                "placa" =>  "525-THK",
-                "modelo" =>  2007,
-                "marca" =>  "Isuzu",
-                "color" =>  "Guindo"
+                "vehiculo_id" =>  1
             ]);
     }
     public function testBadVehiculoShow(){
@@ -155,7 +151,7 @@ class VehiculoControllerTest extends TestCase
         $testingConstantsClass = new TestingConstants;
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$testingConstantsClass->getTokenBearer(),
-        ])->delete('/api/Vehiculo/7');
+        ])->delete('/api/Vehiculo/6');
 
         $response
             ->assertStatus(201)

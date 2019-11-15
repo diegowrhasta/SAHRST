@@ -25,20 +25,19 @@ class DatabaseSeeder extends Seeder
             'puntos',
             'tipo_puntos',
             'round_robinr',
-            'current_assignation',
-            'users',
+            'current_assignation'
         ];
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
         foreach($tables as $table){
             DB::table($table)->truncate();
         }
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        $this->call('RutasSeeder');
         $this->call('ConductorSeeder');
         $this->call('VehiculoSeeder');
         $this->call('ConductorVehiculoSeeder');
         $this->call('TipoPuntoSeeder');
         $this->call('PuntoSeeder');
-        $this->call('RutasSeeder');
-        $this->call('UsersTableSeeder');
+        $this->call('PuntoRutaSeeder');
     }
 }
