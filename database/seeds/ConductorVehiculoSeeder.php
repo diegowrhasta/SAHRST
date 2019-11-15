@@ -1,9 +1,9 @@
 <?php
 
-use App\Ruta;
+use App\Conductor_Vehiculo;
 use Illuminate\Database\Seeder;
 
-class RutasSeeder extends Seeder
+class ConductorVehiculoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,9 +13,10 @@ class RutasSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        for($i=0;$i<5;$i++){
-            Ruta::create([
-                'nombre' => $faker -> streetName . ' - ' . $faker -> streetName 
+        for($i=1;$i<=5;$i++){
+            Conductor_Vehiculo::create([
+                'conductor_id' => $i,
+                'vehiculo_id' => $i
             ]);
         }
     }

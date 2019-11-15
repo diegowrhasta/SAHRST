@@ -13,7 +13,7 @@ class TipoPuntoSeeder extends Seeder
     public function run()
     {
         Tipo_Punto::create(["nombre" => "Inicio"]);
-        Tipo_Punto::create(["nombre" => "Final"]);
         Tipo_Punto::create(["nombre" => "Control"]);
+        Tipo_Punto::create(["nombre" => "Fin"]);
     }
 }
