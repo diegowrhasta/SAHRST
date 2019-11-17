@@ -113,7 +113,7 @@ class RutaDAO
     public function dbGetRoutePoints($ruta_id){
         try{
             $db = new DB;
-            $points = (array) $db::select('select a.ruta_id,a.punto_id,c.nombre as nombre_punto, d.nombre as tipo_punto 
+            $points = (array) $db::select('select a.punto_ruta_id, a.ruta_id,a.punto_id,c.nombre as nombre_punto, d.nombre as tipo_punto 
             from puntos_ruta a, rutas b, puntos c, tipo_puntos d
             where a.ruta_id=?
             and b.ruta_id=?
