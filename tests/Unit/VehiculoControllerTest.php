@@ -27,11 +27,7 @@ class VehiculoControllerTest extends TestCase
         ]);
 
         $response
-            ->assertStatus(201)
-            ->assertJson([
-                'message' => 'Vehiculo registrado correctamente',
-                'code' => 201,
-            ]);
+            ->assertStatus(201);
     }
     public function testBadVehiculoStore(){
         $testingConstantsClass = new TestingConstants;
