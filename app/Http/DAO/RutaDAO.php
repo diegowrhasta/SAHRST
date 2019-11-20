@@ -12,10 +12,9 @@ class RutaDAO
     {
         try{
             $ruta = new Ruta;
-            $ruta::create($data);
+            $ruta = $ruta::create($data);
             return response()->json([
-                'message' => 'Ruta registrada correctamente',
-                'code' => 201,
+                $ruta
             ],201);
         } catch (QueryException $exception){
             return response()->json([

@@ -11,10 +11,9 @@ class PuntoDAO
     {
         try{
             $punto = new Punto;
-            $punto::create($data);
+            $punto = $punto::create($data);
             return response()->json([
-                'message' => 'Punto registrado correctamente',
-                'code' => 201,
+                $punto
             ],201);
         } catch (QueryException $exception){
             return response()->json([
