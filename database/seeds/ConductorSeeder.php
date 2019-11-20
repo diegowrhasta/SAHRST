@@ -30,7 +30,7 @@ class ConductorSeeder extends Seeder
                 continue;
             }
             Conductor::create([
-                'nombres' => $faker -> name,
+                'nombres' => 'DEMO',
                 'ap_paterno' => $faker -> lastName,
                 'ap_materno' => $faker -> lastName,
                 'fecha_nacimiento' => $faker -> dateTimeBetween('-40 years', '-18 years'),
