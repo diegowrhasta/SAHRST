@@ -12,9 +12,7 @@ class PuntoDAO
         try{
             $punto = new Punto;
             $punto = $punto::create($data);
-            return response()->json([
-                $punto
-            ],201);
+            return response()->json($punto,201);
         } catch (QueryException $exception){
             return response()->json([
                 'Error'=> 'Error interno del servidor',

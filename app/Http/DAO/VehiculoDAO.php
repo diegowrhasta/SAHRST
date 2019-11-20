@@ -23,11 +23,8 @@ class VehiculoDAO{
     public function dbSaveVehiculo($data){
         try{
             $vehiculo = new Vehiculo;
-            $vehiculo::create($data);
-            return response()->json([
-                'message'=>'Vehiculo registrado correctamente',
-                'code'=>201
-            ],201);
+            $vehiculo = $vehiculo::create($data);
+            return response()->json($vehiculo,201);
         } catch (QueryException $exception){
             return response()->json([
                 'Error'=> 'Error interno del servidor',

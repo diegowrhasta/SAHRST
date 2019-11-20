@@ -13,9 +13,7 @@ class RutaDAO
         try{
             $ruta = new Ruta;
             $ruta = $ruta::create($data);
-            return response()->json([
-                $ruta
-            ],201);
+            return response()->json($ruta,201);
         } catch (QueryException $exception){
             return response()->json([
                 'Error'=> 'Error interno del servidor',
