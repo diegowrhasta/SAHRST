@@ -24,11 +24,7 @@ class RutaControllerTest extends TestCase
         ]);
 
         $response
-            ->assertStatus(201)
-            ->assertJson([
-                'message' => 'Ruta registrada correctamente',
-                'code' => 201,
-            ]);
+            ->assertStatus(201);
     }
     public function testBadRutaStore(){
         $testingConstantsClass = new TestingConstants;

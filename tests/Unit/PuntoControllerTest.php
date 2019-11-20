@@ -26,11 +26,7 @@ class PuntoControllerTest extends TestCase
         ]);
 
         $response
-            ->assertStatus(201)
-            ->assertJson([
-                'message' => 'Punto registrado correctamente',
-                'code' => 201,
-            ]);
+            ->assertStatus(201);
     }
     public function testBadStorePunto(){
         //Bad Test
