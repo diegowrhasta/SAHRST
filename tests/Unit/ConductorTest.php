@@ -35,7 +35,7 @@ class ConductorTest extends TestCase
             ->assertStatus(201)
             ->assertJson([
                 'message' => 'Conductor registrado correctamente',
-                'code' => 203,
+                'code' => 201,
             ]);
     }
     public function testBadStoreConductor(){
