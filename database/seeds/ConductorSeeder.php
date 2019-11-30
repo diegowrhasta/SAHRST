@@ -16,9 +16,9 @@ class ConductorSeeder extends Seeder
         for($i=0;$i<5;$i++){
             if($i==0){
                 Conductor::create([
-                    'nombres' => 'Diego Samuel Balderrama Quino',
-                    'ap_paterno' => $faker -> lastName,
-                    'ap_materno' => $faker -> lastName,
+                    'nombres' => 'Diego Samuel',
+                    'ap_paterno' => $faker -> Balderrama,
+                    'ap_materno' => $faker -> Quino,
                     'fecha_nacimiento' => $faker -> dateTimeBetween('-40 years', '-18 years'),
                     'ci' => $faker -> numberBetween(1000000,9999999),
                     'direccion' => $faker -> address,
