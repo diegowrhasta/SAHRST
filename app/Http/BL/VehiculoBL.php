@@ -25,7 +25,7 @@ class VehiculoBL{
     public function getVehiculos(){
         $vehiculoDAO = new VehiculoDAO;
         $vehiculos = $vehiculoDAO->getList();
-        if(count($vehiculos)==0 || !$vehiculos){
+        if(count($vehiculos)==0){
             return response()->json([
                 'Message' =>'No hay vehículos registrados',
                 'Code' => 404

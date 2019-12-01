@@ -131,7 +131,7 @@ class VehiculoDAO{
             return response()->json([
                 'message' => 'No Vehicles',
                 'code' => 404,
-            ]);
+            ],404);
         }
         catch (QueryException $exception){
             return response()->json([
