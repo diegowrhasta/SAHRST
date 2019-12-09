@@ -24,7 +24,7 @@ class Conductor_VehiculoBL{
         $resp = $conductor_vehiculoDAO->dbGetAll();
         if(count($resp)<1){
             return response()->json([
-                'message' => 'No conductores found',
+                'message' => 'No conductores_vehiculo found',
                 'code' => 404,
             ],404);
         }
