@@ -19,4 +19,18 @@ class Conductor_VehiculoBL{
             'code' => 404,
         ],404);
     }
+    public function prepareAll(){
+        $conductor_vehiculoDAO = new Conductor_VehiculoDAO;
+        $resp = $conductor_vehiculoDAO->dbGetAll();
+        if(count($resp)<1){
+            return response()->json([
+                'message' => 'No conductores found',
+                'code' => 404,
+            ],404);
+        }
+        else{
+            return $resp;
+        }
+        
+    }
 }

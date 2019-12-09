@@ -25,4 +25,9 @@ class Conductor_VehiculoController extends Controller
         $resp = $conductor_vehiculoBL->prepareStore($data);
         return $resp;
     }
+    public function index(){
+        $conductor_vehiculoBL = new Conductor_VehiculoBL;
+        $resp = $conductor_vehiculoBL->prepareAll();
+        return response()->json($resp,200);
+    }
 }

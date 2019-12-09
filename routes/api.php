@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('Conductor/{Conductor}/Vehiculo', 'ConductorController@getVehiculos');
     Route::get('Conductor/{Conductor}/Vehiculo/{Vehiculo}', 'ConductorController@getVehiculo');
     Route::post('Conductor_Vehiculo', 'Conductor_VehiculoController@store');
+    Route::get('Conductor_Vehiculo', 'Conductor_VehiculoController@index');
     Route::get('Conductor/{Conductor}/Punto_Control','ConductorController@getPuntoControl');
     Route::post('Conductor/{Conductor}/isInCheckpoint', 'ConductorController@goodPuntoControl');
     Route::post('Conductor/{Conductor}/Reportar','ConductorController@badPuntoControl');
