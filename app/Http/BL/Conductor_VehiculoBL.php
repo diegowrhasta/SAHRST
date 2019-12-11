@@ -28,9 +28,6 @@ class Conductor_VehiculoBL{
                 'code' => 404,
             ],404);
         }
-        else{
-            return $resp;
-        }
-        
+        return $resp;
     }
 }
